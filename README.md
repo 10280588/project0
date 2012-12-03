@@ -43,7 +43,7 @@ Pages:
 		- Enrolled
 			- Result List Page 
 		- Recently viewed
-			- Result List Page 
+			- Result List Page n
 		- Shopping Bag
 	
 

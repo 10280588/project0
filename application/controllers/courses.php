@@ -1,5 +1,5 @@
 <?php
-class Test extends CI_Controller {
+class Courses extends CI_Controller {
 
 	public function __construct()
 	{
@@ -7,10 +7,12 @@ class Test extends CI_Controller {
 		$this->load->model('courses_model');
 	}
 
-	public function courses()
+	public function index()
 	{
 		$data['courses'] = $this->courses_model->get_courses();
-		$this->load->view('test_view', $data);
+		$this->load->view('templates/header');
+		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/footer');
 	}
 
 	public function course($id = FALSE)
@@ -21,7 +23,9 @@ class Test extends CI_Controller {
 	    }
 	    
 		$data['courses'] = $this->courses_model->get_course($id);
-		$this->load->view('test_view', $data);
+		$this->load->view('templates/header');
+		$this->load->view('pages/individual_view', $data);
+		$this->load->view('templates/footer');
 	}
 }
 
