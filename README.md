@@ -28,7 +28,7 @@ Browsing:
 
 Search:
 - search all courses directly from the home screen of the app by keyword (name, catalog number, description, instructor)
-- advanced search supporting searching by day or/and time  
+- advanced search supporting searching by day or/and time
 - view the results of your search in a scrollable list.
 
 Pages:
