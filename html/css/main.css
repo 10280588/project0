@@ -1,0 +1,21 @@
+#picture{
+    background-color:#A23138 ;
+    border-radius:20px;
+    height:120px;
+    margin-bottom:20px;
+    padding:0;
+}
+
+.ui-content{ 
+    background-color: #fff; 
+}
+
+body{
+    color: #6c6c6c;
+    background-color:#fff;
+
+}
+
+.ui-body-c, .ui-overlay-c{
+    background-color:#fff;
+}
