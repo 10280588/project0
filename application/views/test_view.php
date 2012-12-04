@@ -1,4 +1,7 @@
-<?php foreach($courses as $course): ?>
+<?php 
+reset($courses);
+$course = current($courses);
+?>
 
     <h2><?php echo $course['title'] ?></h2>
     <div id="main">       
@@ -6,7 +9,11 @@
         <p><?php echo $course['description']?></p>
         <p><?php echo 'department short name:'. $course['short_name']?></p>
         <p><?php echo 'department:'. $course['dept_number']?></p>
-        <p><?php echo $course['prefix'] .' '. $course['first_name'] .' '. $course['middle_name'] .' '. $course['last_name'] .' '. $course['suffix']?></p>
-        <p><?php echo 'day:'. $course['day'] .' begin time:'. $course['begin_time'] .' end time:'. $course['end_time']?></p>
+        <h1> Faculty model: </h1>
+        <?php foreach($faculty as $facl): ?>
+        <p><?php echo $facl['prefix'] .' '. $facl['first_name'] .' '. $facl['middle_name'] .' '. $facl['last_name'] .' '. $facl['suffix']?></p>
+        <?php endforeach ?>
+        <?php foreach($schedule as $sched): ?>
+        <p><?php echo 'day:'. $sched['day'] .' begin time:'. $sched['begin_time'] .' end time:'. $sched['end_time']?></p>
+        <?php endforeach ?>
     </div>
-<?php endforeach ?>

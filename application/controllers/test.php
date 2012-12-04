@@ -21,6 +21,8 @@ class Test extends CI_Controller {
 	    }
 	    
 		$data['courses'] = $this->courses_model->get_course($id);
+		$data['faculty'] = $this->courses_model->get_course_facl($id);
+		$data['schedule'] = $this->courses_model->get_course_schedule($id);
 		$this->load->view('test_view', $data);
 	}
 	
