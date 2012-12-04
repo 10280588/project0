@@ -6,9 +6,6 @@
     padding:0;
 }
 
-.ui-content{ 
-    background-color: #fff; 
-}
 
 body{
     color: #6c6c6c;
@@ -16,6 +13,92 @@ body{
 
 }
 
-.ui-body-c, .ui-overlay-c{
-    background-color:#fff;
+
+
+
+/* Individual Page Declarations */
+.individual h2{
+    
+    margin:0;
+    padding:0px 0px 15px 0px;
 }
+
+.individual h4{
+    margin:0;
+    padding:0;
+}
+
+.individual p{
+    margin:5px 0 0px 0;
+    padding:px;
+}
+
+.individual table{
+    border-color:#ecedee;
+    color:#fff;
+    text-align:left;
+    width:100%;
+    
+}
+.individual td{
+    margin:0;
+}
+.individual th{
+    background-color:;
+    color:#fff;
+    font-weight:bold;
+    margin:0;
+    padding:5px 0px 0px 0px;
+    text-align:left;
+}
+.individual #description{
+    border-bottom:3px solid #ecedee;
+    padding-bottom:5px;
+}
+.individual #greyArea{
+    background-color:#a23138;
+    
+    width:100%;
+    
+}
+
+.individual #greyArea #content{
+      background-color:#a23138;
+}
+
+
+
+.individual table .time{
+    text-align:center;
+}
+
+.individual .bold{
+    font-weight:bold;
+    color:#a23138;
+}
+
+.individual input{
+    margin-top:10px;
+}
+
+
+#popupPanel-popup {
+    right: 0 !important;
+    left: auto !important;
+}
+#popupPanel {
+    width: 400px;
+    
+    border: 3px solid #fff;
+    border-right: none;
+    background: #a23138;
+    margin: -10px 0;
+}
+
+#popupPanel-screen{
+     background: #6c6c6c;;
+}
+#popupPanel .ui-btn {
+  
+}
+
