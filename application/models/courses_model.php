@@ -73,7 +73,17 @@ class Courses_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('Schedule');
         $this->db->join('Term','Schedule.term_number = Term.term_number', 'left');
+        $this->db->join('Day','Schedule.day = Day.day_number');
         $this->db->where('Schedule.course_unique', $id);
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+    
+    public function get_course_location($id)
+    {
+        $this->db->select('*');
+        $this->db->from('Location');
+        $this->db->where('course_unique', $id);
 		$query = $this->db->get();
 		return $query->result_array();
     }
