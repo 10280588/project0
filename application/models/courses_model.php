@@ -40,7 +40,7 @@ class Courses_model extends CI_Model {
                 
                 foreach ($facl_number as $facl)
                 {
-                    $this->db->select('course_unique');
+                    $this->db->select('course_uniquen');
                     $this->db->where('facl_number',$facl_number);
                     $course_uniques = $this->db->get('Course_Faculty');
                 }
