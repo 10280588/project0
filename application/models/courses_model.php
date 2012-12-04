@@ -19,9 +19,45 @@ class Courses_model extends CI_Model {
 		return $query->result_array();
     }
     
+     public function set_faculty()
+    {
+        $this->db->select('course_unique');
+        $this->db->from('Courses');
+		$query = $this->db->get();
+		$courses = $query->result_array();
+		foreach($courses as $course)
+		{
+		    $this->db->select('*');
+            $this->db->from('Course_Faculty');
+            $this->db->where('course_unique',$course['course_unique']);
+            $query2 = $this->db->get();
+            $array2 = $query2->result_array();
+            
+            if(empty($array2))
+            {
+                $data = array(
+                    'course_unique' => $course['course_unique'] ,
+                    'facl_number' => '7246'
+                );
+
+                $this->db->insert('Course_Faculty', $data); 
+            }            
+		}
+		
+		return TRUE;
+    }
+    
     public function get_course($id)
     {
-		$query = $this->db->get_where('Courses', array('course_unique' => $id));
+        $this->db->select('*');
+        $this->db->from('Courses');
+        $this->db->join('Course_Department','Courses.course_unique = Course_Department.course_unique');
+        $this->db->join('Department','Course_Department.dept_number = Department.dept_number');
+        $this->db->join('Course_Faculty','Courses.course_unique = Course_Faculty.course_unique', 'left');
+        $this->db->join('Faculty','Course_Faculty.facl_number = Faculty.facl_number', 'full');
+        $this->db->join('Schedule','Courses.course_unique = Schedule.course_unique','left');
+        $this->db->where('Courses.course_unique', $id);
+		$query = $this->db->get();
 		return $query->result_array();
     }
     
