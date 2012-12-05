@@ -14,6 +14,6 @@ $course = current($courses);
         <p><?php echo $facl['prefix'] .' '. $facl['first_name'] .' '. $facl['middle_name'] .' '. $facl['last_name'] .' '. $facl['suffix']?></p>
         <?php endforeach ?>
         <?php foreach($schedule as $sched): ?>
-        <p><?php echo 'day:'. $sched['day'] .' begin time:'. $sched['begin_time'] .' end time:'. $sched['end_time']?></p>
+        <p><?php echo 'day:'. $sched['short_name'] .' begin time:'. $sched['begin_time'] .' end time:'. $sched['end_time']?></p>
         <?php endforeach ?>
     </div>
