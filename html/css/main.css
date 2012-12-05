@@ -1,3 +1,5 @@
+/*lot of css declarations are inside the custom jquery mobile css file */
+
 #picture{
     background-color:#A23138 ;
     border-radius:20px;
@@ -13,6 +15,10 @@ body{
 
 }
 
+
+.white{
+    color:#fff;
+}
 
 
 
@@ -33,17 +39,17 @@ body{
     padding:px;
 }
 
-.individual table{
+.individual #redArea table{
     border-color:#ecedee;
     color:#fff;
     text-align:left;
     width:100%;
     
 }
-.individual td{
+.individual #redArea td{
     margin:0;
 }
-.individual th{
+.individual #redArea th{
     background-color:;
     color:#fff;
     font-weight:bold;
@@ -55,26 +61,53 @@ body{
     border-bottom:3px solid #ecedee;
     padding-bottom:5px;
 }
-.individual #greyArea{
+.individual #redArea{
     background-color:#a23138;
-    
-    width:100%;
+        width:100%;
     
 }
 
-.individual #greyArea #content{
+.individual #redArea #content{
       background-color:#a23138;
 }
 
+.individual .addInfo table {
+    margin:0px 0px 0px 0px;
+    padding:0;
+    border-spacing:0;
+    border:1px solid #a23138;
+    width:100%;
+}
+.individual .addInfo table td{
+    border:1px solid #a23138 ;
+    padding:2px;
+    width:75%;
+}
+
+.individual .addInfo table td .quarter{
+    width:25%;
+}
+
+.center {text-align:center;}
+.addInfo table .title{  color:#fff;  background:#a23138;}
 
 
-.individual table .time{
+
+.individual #redArea table .center{
     text-align:center;
 }
 
+.individual #redArea table th .center{
+    text-align:center;
+}
 .individual .bold{
     font-weight:bold;
+}
+.individual .red{
     color:#a23138;
+}
+.individual .block{
+    display:block;
 }
 
 .individual input{
@@ -82,17 +115,23 @@ body{
 }
 
 
+
+
+
+
+/* filter popup declarations */ 
 #popupPanel-popup {
     right: 0 !important;
     left: auto !important;
 }
 #popupPanel {
-    width: 400px;
+    width: 210px;
     
     border: 3px solid #fff;
     border-right: none;
     background: #a23138;
     margin: -10px 0;
+    padding:10px;
 }
 
 #popupPanel-screen{
@@ -101,4 +140,6 @@ body{
 #popupPanel .ui-btn {
   
 }
+
+
 
