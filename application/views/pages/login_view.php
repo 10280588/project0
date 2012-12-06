@@ -9,7 +9,7 @@
     
     <div data-role="content" class="ui-content" role="main">
     
-    <form action="index.php/users/login" method="post">
+    <form action="users/login" method="post">
     <h3>Student number:</h3>
     <input type="text" name="student_number" id="student_number" value=""  />
     <h3>Password:</h3>

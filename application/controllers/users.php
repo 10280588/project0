@@ -40,5 +40,54 @@ class Users extends CI_Controller {
 		    }
 		}
 	}
+	
+	public function add_course($cid = FALSE)
+	{
+	    $uid = $this->input->cookie('uid');
+	    
+	    if($uid === FALSE)
+	    {
+	        $this->login();
+	    }
+	    
+	    if($cid === FALSE)
+	    {
+	        show_404();
+	    }
+	    
+	    $this->users_model->add_course($uid,$cid);
+	    
+	    $data['courses'] = $this->courses_model->get_course($cid);
+		$data['faculty'] = $this->courses_model->get_course_facl($cid);
+		$data['schedule'] = $this->courses_model->get_course_schedule($cid);
+	    $data['locations'] = $this->courses_model->get_course_location($cid);
+		
+		$this->load->view('templates/header');
+		$this->load->view('pages/individual_view', $data);
+		$this->load->view('templates/footer');
+	}
+	
+	public function remove_course($cid = FALSE)
+	{
+	    $uid = $this->input->cookie('uid');
+	    
+	    if($uid === FALSE)
+	    {
+	        $this->login();
+	    }
+	    
+	    if($cid === FALSE)
+	    {
+	        show_404();
+	    }
+	    
+	    $this->users_model->remove_course($cid = FALSE);
+	    
+	    $data['courses'] = $this->users_model->get_user_courses($uid);
+	    
+	    $this->load->view('templates/header');
+	    $this->load->view('pages/my_courses_view', $data);
+	    $this->load->view('templates/footer');
+	}
 }
 
