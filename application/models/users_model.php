@@ -78,7 +78,7 @@ class Users_model extends CI_Model {
         $this->input->set_cookie($cookie);
     }
     
-    public function get_user_name($uid);
+    public function get_user_name($uid)
     {
         $this->db->select('first_name, last_name');
         $this->db->from('User');
