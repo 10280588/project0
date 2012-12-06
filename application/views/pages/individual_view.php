@@ -45,10 +45,12 @@ $sched = current($schedule);
                     <tr>
                         <td  class="title">Name</td>
                         <td  class="title center quarter">Role</td>
+                        <td  class="title center quarter">Term</td>
                     </tr>
                     <?php foreach($faculty as $facl): ?>
                     <tr>
                         <td><?php echo $facl['prefix'] .' '. $facl['first_name'] .' '. $facl['middle_name'] .' '. $facl['last_name'] .' '. $facl['suffix']; ?></td>
+                        <td class="center quarter">Term</td>
                         <td class="center quarter"><?php echo $facl['role'];?></td>
                     </tr>
                     <?php endforeach ?>
@@ -60,12 +62,14 @@ $sched = current($schedule);
                 <table>
                     <tr>
                         <td  class="title">Building</td>
-                        <td  class="title center quarter ">Room</td>
+                        <td  class="title center quarter">Room</td>
+                        <td  class="title center quarter">Term</td>
                     </tr>
                     <?php foreach($locations as $location): ?>
                     <tr>
                         <td><?php echo $location['building']; ?></td>
                         <td class="center quarter"><?php echo $location['room']; ?></td>
+                        <td class="center quarter"><?php echo $location['term_number']; ?></td>
                     </tr>
                     <?php endforeach ?>
                 </table>

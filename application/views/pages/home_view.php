@@ -3,14 +3,17 @@
         <div  id="picture">
         
         </div>
-        <input type="text" data-type="search" name="search" id="search-basic" value="" class="ui-input-text ui-body-a">
-        <input type="submit" data-mini="true" value="Submit Button" />
+        
+        <form action="form.php" method="get">
+            <input type="text" data-type="search" name="search" id="search-basic" value="" class="ui-input-text ui-body-a">
+            <input type="submit" data-mini="true" value="Submit Button" />
+        </form>
         <ul data-role="listview" data-inset="true" >
             <li  data-role="list-divider"  ></li>
-	        <li><a href="#two" data-transition="slide">Advanced Search</a></li>
+	        <li><a href="#advancedSearch" data-transition="slide">Advanced Search</a></li>
 	        <li><a href="index.php/courses" data-transition="slide">All Courses</a></li>
-	        <li><a href="#four"  data-transition="slide">My Courses</a></li>
-	        <li><a href="#five"  data-transition="slide">Contact Info</a></li>
+	        <li><a href="#myCourses"  data-transition="slide">My Courses</a></li>
+	        <li><a href="#contactInfo"  data-transition="slide">Contact Info</a></li>
         </ul>
     </div><!--- end of content --> 
 </div><!--- end of page -->

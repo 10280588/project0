@@ -4,7 +4,7 @@
     <!-- begin of header -->
 	<div data-role="header">
 	<a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
-	<h1>Page Title</h1>
+	<h1>Search Results</h1>
 	<a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
     </div>
     <!-- end of header -->
@@ -71,10 +71,10 @@
 	<ul data-role="listview"  data-filter='true'>
 		<?php $i = 0; ?>
 		
-		<?php foreach ($courses as $course): ?>
+		<?php foreach ($results as $result): ?>
         
             <?php if ($i < 500)  :?>
-                <li><a href="courses/course/<?php echo $course['course_unique']; ?> "><?php echo $course['title'] ?></a></li>
+                <li><a href="courses/course/<?php echo $result['course_unique']; ?> "><?php echo $result['title'] ?></a></li>
                 <?php  $i++ ?>
             <?php endif ?>
    

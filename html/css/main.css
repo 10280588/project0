@@ -81,11 +81,11 @@ body{
 .individual .addInfo table td{
     border:1px solid #a23138 ;
     padding:2px;
-    width:75%;
+    width:60%;
 }
 
 .individual .addInfo table td .quarter{
-    width:25%;
+    width:20%;
 }
 
 .center {text-align:center;}
@@ -142,4 +142,9 @@ body{
 }
 
 
+
+
+/*contact page*/
+
+#googleMaps{height:200px; width:100%; background:green;}
 
