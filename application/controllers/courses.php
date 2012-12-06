@@ -12,9 +12,7 @@ class Courses extends CI_Controller {
 	{
 		$data['courses'] = $this->courses_model->get_courses();
 		$this->load->view('templates/header');
-		
 		$this->load->view('pages/list_view', $data);
-		$this->load->view('templates/bottom_menu');
 		$this->load->view('templates/footer');
 	}
 
