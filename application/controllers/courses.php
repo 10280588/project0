@@ -35,8 +35,8 @@ class Courses extends CI_Controller {
 	
 	public function searchresult()
 	{
-	    $slug = $this->input->post('searchHome');
-	    $operator = $this->input->post('operator');
+	    $slug = $this->input->get('searchHome');
+	    $operator = $this->input->get('operator');
 	    
 	    if($operator === FALSE)
 	    {
@@ -71,4 +71,3 @@ class Courses extends CI_Controller {
 }
 
 
-in de inspector van chrome zie jedat de css niet wordt ingeladen :S
