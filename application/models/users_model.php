@@ -78,13 +78,68 @@ class Users_model extends CI_Model {
         $this->input->set_cookie($cookie);
     }
     
+    public function delete_uid_cookie()
+    {     
+        delete_cookie('uid');
+    }
+    
     public function get_user_name($uid)
     {
         $this->db->select('first_name, last_name');
         $this->db->from('User');
         $this->db->where('user_id',$uid);
+        $this->db->limit(1);
         $query = $this->db->get();
         return $query->result_array();
+    }
+    
+    public function get_user_courses($uid)
+    {
+        $this->db->select('Courses.course_unique, Courses.title');
+        $this->db->from('Courses');
+        $this->db->join('Course_User','Courses.course_unique = Course_User.course_unique');
+        $this->db->join('User','Course_User.user_id = User.user_id');
+        $this->db->where('User.user_id',$uid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+    public function add_course($uid,$cid)
+    {
+        $data = array(
+       'course_unique' => $cid ,
+       'user_id' => $uid
+        );
+
+        $this->db->insert('Course_User', $data);
+        return TRUE;
+    }
+    
+    public function remove_course($uid,$cid)
+    {
+        $this->db->where('course_unique', $cid);
+        $this->db->where('user_id', $uid);
+        $this->db->delete('Course_User');
+        return True;
+    }
+    
+    public function login_check($uid, $pass)
+    {
+        $this->db->select(*);
+        $this->db->from('User');
+        $this->db->where('user_id', $uid);
+        $this->db->where('password', $pass);
+        $query = $this->db->get();
+        $tquery = $query->result_array();
+        
+        if(empty($tquery))
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+        }
     }
 }
 ?>
