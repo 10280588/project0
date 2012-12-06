@@ -15,7 +15,19 @@ class Courses_model extends CI_Model {
     
     public function get_departments()
     {
+        $this->db->select('short_name,dept_number');
 		$query = $this->db->get('Departments');
+		return $query->result_array();
+    }
+    
+    public function get_department($id)
+    {
+        $this->db->select('Courses.title,Courses.course_unique');
+        $this->db->from('Courses');
+        $this->db->join('Course_Department','Courses.course_unique = Course_Department.course_unique');
+        $this->db->join('Department','Course_Department.dept_number = Department.dept_number');
+        $this->db->where('Department.dept_number', $id);
+		$query = $this->db->get();
 		return $query->result_array();
     }
     
@@ -184,11 +196,12 @@ class Courses_model extends CI_Model {
 	        foreach($totalQuery as $tQuery)
             {
                 $i = FALSE;
+                
                 foreach($resultQuery as $rQuery)
                 {
                     if($tQuery['course_unique'] == $rQuery['course_unique'])
                     {
-                    $i=TRUE;
+                        $i=TRUE;
                     }
                 }
                 if($i === FALSE)

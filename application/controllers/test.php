@@ -27,8 +27,26 @@ class Test extends CI_Controller {
 		$this->load->view('test_view', $data);
 	}
 	
-	public function searchresult($slug = FALSE, $operator = 'and')
+	public function department($id = FALSE)
 	{
+	    if($id === FALSE)
+	    {
+	        show_404();
+	    }
+	    
+		$data['courses'] = $this->courses_model->get_department($id);
+		$this->load->view('test_view', $data);
+	}
+	
+	public function searchresult()
+	{
+	    $slug = $this->input->post('keywords');
+	    $operator = $this->input->post('operator');
+	    if($operator === FALSE)
+	    {
+	        $operator = 'and';
+	    }
+	    
 	    if($slug === FALSE)
 	    {
 	        $data['results'] = $this->courses_model->get_courses();
