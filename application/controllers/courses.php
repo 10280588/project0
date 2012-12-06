@@ -35,8 +35,16 @@ class Courses extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	
-	public function searchresult($slug = FALSE, $operator = 'and')
+	public function searchresult()
 	{
+	    $slug = $this->input->post('keywords');
+	    $operator = $this->input->post('operator');
+	    
+	    if($operator === FALSE)
+	    {
+	        $operator = 'and';
+	    }
+	    
 	    if($slug === FALSE)
 	    {
 	        $data['results'] = $this->courses_model->get_courses();
@@ -64,3 +72,5 @@ class Courses extends CI_Controller {
 	
 }
 
+
+in de inspector van chrome zie jedat de css niet wordt ingeladen :S

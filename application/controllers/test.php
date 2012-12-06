@@ -34,7 +34,7 @@ class Test extends CI_Controller {
 	        show_404();
 	    }
 	    
-		$data['courses'] = $this->courses_model->get_department($id);
+		$data['results'] = $this->courses_model->get_department($id);
 		$this->load->view('test_view', $data);
 	}
 	

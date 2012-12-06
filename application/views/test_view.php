@@ -1,8 +1,9 @@
 <p>loaded</p>
 <?php 
-//reset($results);
-//$result = current($results);
+reset($results);
+$res = current($results);
 //echo Print_r($results);
+echo '<h1>'. $res['short_name'] .'</h1>';
 foreach($results as $result):
 //echo Print_r($result);
 ?>

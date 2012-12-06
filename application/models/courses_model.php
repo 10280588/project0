@@ -22,7 +22,7 @@ class Courses_model extends CI_Model {
     
     public function get_department($id)
     {
-        $this->db->select('Courses.title,Courses.course_unique');
+        $this->db->select('Courses.title,Courses.course_unique,Department.short_name');
         $this->db->from('Courses');
         $this->db->join('Course_Department','Courses.course_unique = Course_Department.course_unique');
         $this->db->join('Department','Course_Department.dept_number = Department.dept_number');
