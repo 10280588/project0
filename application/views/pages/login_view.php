@@ -9,11 +9,11 @@
     
     <div data-role="content" class="ui-content" role="main">
     
-    <form>
+    <form action="index.php/users/login" method="post">
     <h3>Student number:</h3>
     <input type="text" name="student_number" id="student_number" value=""  />
     <h3>Password:</h3>
-    <input type="text" name="password" id="password" value=""  />
+    <input type="password" name="password" id="password" value=""  />
     </br>
     <input type="submit"  value="Login" />
     </form>
