@@ -62,6 +62,29 @@ class Users_model extends CI_Model {
         );
 
         $this->db->insert('User', $user); 
-    }          
+    }     
+    
+    public function create_cookie($uid)
+    {     
+        $cookie = array(
+        'name'   => 'uid',
+        'value'  => $uid,
+        'expire' => '0',
+        'domain' => '.project0',
+        'path'   => '/',
+        'secure' => TRUE
+        );
+
+        $this->input->set_cookie($cookie);
+    }
+    
+    public function get_user_name($uid);
+    {
+        $this->db->select('first_name, last_name');
+        $this->db->from('User');
+        $this->db->where('user_id',$uid);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 ?>
