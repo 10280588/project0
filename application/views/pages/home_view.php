@@ -4,8 +4,8 @@
         
         </div>
         
-        <form action="form.php" method="get">
-            <input type="text" data-type="search" name="search" id="search-basic" value="" class="ui-input-text ui-body-a">
+        <form action="index.php/courses/searchresult" method="get">
+            <input type="text" data-type="searchHome" name="searchHome" id="searchHome" value="" class="ui-input-text ui-body-a">
             <input type="submit" data-mini="true" value="Submit Button" />
         </form>
         <ul data-role="listview" data-inset="true" >

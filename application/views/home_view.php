@@ -2,9 +2,11 @@
 <div data-role="content" class="ui-content" role="main">
 <div  id="picture">
 </div>
+
+<form action="index.php/courses/searchresult">
 <input type="text" data-type="search" name="search" id="homeSearch" value="" class="ui-input-text ui-body-a">
 <input type="submit" data-mini="true" value="Submit Button" />
-
+</form> 
 
 		
 <ul data-role="listview" data-inset="true" >
