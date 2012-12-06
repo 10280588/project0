@@ -5,6 +5,7 @@ class Test extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('courses_model');
+		$this->load->model('users_model');
 	}
 
 	public function courses()
@@ -67,6 +68,12 @@ class Test extends CI_Controller {
 		    }
 		}
 		$this->load->view('test_view', $data);
+	}
+	
+	public function users_db()
+	{
+		$this->users_model->create_db_tables();
+		$this->load->view('succes_view');
 	}
 	
 }
