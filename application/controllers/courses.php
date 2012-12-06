@@ -35,7 +35,7 @@ class Courses extends CI_Controller {
 	
 	public function searchresult()
 	{
-	    $slug = $this->input->post('keywords');
+	    $slug = $this->input->post('searchHome');
 	    $operator = $this->input->post('operator');
 	    
 	    if($operator === FALSE)

@@ -2,7 +2,7 @@
 <div data-role="content" class="ui-content" role="main">
 <div  id="picture">
 </div>
-<input type="text" data-type="search" name="search" id="search-basic" value="" class="ui-input-text ui-body-a">
+<input type="text" data-type="search" name="search" id="homeSearch" value="" class="ui-input-text ui-body-a">
 <input type="submit" data-mini="true" value="Submit Button" />
 
 
