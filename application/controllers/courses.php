@@ -12,7 +12,9 @@ class Courses extends CI_Controller {
 	{
 		$data['courses'] = $this->courses_model->get_courses();
 		$this->load->view('templates/header');
+		
 		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/bottom_menu');
 		$this->load->view('templates/footer');
 	}
 
@@ -32,6 +34,33 @@ class Courses extends CI_Controller {
 		$this->load->view('pages/individual_view', $data);
 		$this->load->view('templates/footer');
 	}
+	
+	public function searchresult($slug = FALSE, $operator = 'and')
+	{
+	    if($slug === FALSE)
+	    {
+	        $data['results'] = $this->courses_model->get_courses();
+	    }
+	    else
+	    {
+	        if($operator === 'and')
+	        {
+		        $data['results'] = $this->courses_model->get_and_search($slug);
+		    }
+		    elseif($operator === 'or')
+		    {
+		        $data['results'] = $this->courses_model->get_or_search($slug);
+		    }
+		    else
+		    {
+		        show_404();
+		    }
+		}
+		$this->load->view('templates/header');
+		$this->load->view('pages/list_search_result_view', $data);
+		$this->load->view('templates/footer');
+	}	
+	
 	
 }
 
