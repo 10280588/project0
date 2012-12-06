@@ -126,7 +126,7 @@ class Users_model extends CI_Model {
     
     public function login_check($uid, $pass)
     {
-        $this->db->select(*);
+        $this->db->select('*');
         $this->db->from('User');
         $this->db->where('user_id', $uid);
         $this->db->where('password', $pass);
