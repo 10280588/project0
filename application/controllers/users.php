@@ -1,5 +1,5 @@
 <?php
-class Test extends CI_Controller {
+class Users extends CI_Controller {
 
 	public function __construct()
 	{
@@ -8,73 +8,37 @@ class Test extends CI_Controller {
 		$this->load->model('users_model');
 	}
 
-	public function courses()
+	public function login()
 	{
-		$data['courses'] = $this->courses_model->get_courses();
-		$this->load->view('test_view', $data);
-	}
-
-	public function course($id = FALSE)
-	{
-	    if($id === FALSE)
-	    {
-	        show_404();
-	    }
+	    $this->load->helper('form');
+	    $this->load->library('form_validation');	    
+	    $this->form_validation->set_rules('student_number', 'Student Number', 'required');
+	    $this->form_validation->set_rules('password', 'Password', 'required');
 	    
-		$data['courses'] = $this->courses_model->get_course($id);
-		$data['faculty'] = $this->courses_model->get_course_facl($id);
-		$data['schedule'] = $this->courses_model->get_course_schedule($id);
-		$data['locations'] = $this->courses_model->get_course_location($id);
-		$this->load->view('test_view', $data);
-	}
-	
-	public function department($id = FALSE)
-	{
-	    if($id === FALSE)
+	    if ($this->form_validation->run() === FALSE)
 	    {
-	        show_404();
-	    }
-	    
-		$data['results'] = $this->courses_model->get_department($id);
-		$this->load->view('test_view', $data);
-	}
-	
-	public function searchresult()
-	{
-	    $slug = $this->input->post('keywords');
-	    $operator = $this->input->post('operator');
-	    if($operator === FALSE)
-	    {
-	        $operator = 'and';
-	    }
-	    
-	    if($slug === FALSE)
-	    {
-	        $data['results'] = $this->courses_model->get_courses();
+    		$this->load->view('templates/header');
+		    $this->load->view('pages/login_view');
+		    $this->load->view('templates/footer');
 	    }
 	    else
 	    {
-	        if($operator === 'and')
+	        $uid = $this->input->post('student_number');
+	        $pass = $this->input->post('password');
+	        $loginCheck = $this->users_model->login_check($uid,sha1($pass));
+	        
+	        if($loginCheck = TRUE)
 	        {
-		        $data['results'] = $this->courses_model->get_and_search($slug);
-		    }
-		    elseif($operator === 'or')
-		    {
-		        $data['results'] = $this->courses_model->get_or_search($slug);
-		    }
+	            $this->users_model->create_uid_cookie($uid);
+	            $this->load->view('pages/home_view');
+	        }
 		    else
 		    {
-		        show_404();
+        		$this->load->view('templates/header');
+		        $this->load->view('pages/login_view');
+		        $this->load->view('templates/footer');
 		    }
 		}
-		$this->load->view('test_view', $data);
 	}
-	
-	public function users_db()
-	{
-		$this->users_model->create_db_tables();
-		$this->load->view('succes_view');
-	}
-	
 }
 

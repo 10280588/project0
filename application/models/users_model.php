@@ -64,7 +64,7 @@ class Users_model extends CI_Model {
         $this->db->insert('User', $user); 
     }     
     
-    public function create_cookie($uid)
+    public function create_uid_cookie($uid)
     {     
         $cookie = array(
         'name'   => 'uid',
@@ -79,7 +79,8 @@ class Users_model extends CI_Model {
     }
     
     public function delete_uid_cookie()
-    {     
+    {    
+        $this->load->helper('cookie');
         delete_cookie('uid');
     }
     

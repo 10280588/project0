@@ -11,9 +11,9 @@
     
     <form>
     <h3>Student number:</h3>
-    <input type="text" name="name" id="basic" value=""  />
+    <input type="text" name="student_number" id="student_number" value=""  />
     <h3>Password:</h3>
-    <input type="text" name="name" id="basic" value=""  />
+    <input type="text" name="password" id="password" value=""  />
     </br>
     <input type="submit"  value="Login" />
     </form>
