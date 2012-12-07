@@ -45,6 +45,10 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_wherein				= array();
 	var $ar_aliased_tables		= array();
 	var $ar_store_array			= array();
+	
+	//Manually Added Variables
+	var $ar_bracket_open = FALSE;
+	var $last_bracket_type = 'where';
 
 	// Active Record Caching variables
 	var $ar_caching				= FALSE;
@@ -2039,6 +2043,56 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		$this->_reset_run($ar_reset_items);
 	}
+	
+	/*manually added function, source (ellislab.com/forums/viewthread/121845/#718425)
+	usage:  
+    //bracket started
+    $this->db->like('(tc.mc_name', $filter);
+    $this->db->or_like('tb.bname', $filter);
+    $this->db->bracket('close','like'); //bracket closed  
+    */
+    function bracket($type = NULL,$append='where')
+    {
+        if ( strtolower($type) == 'open' )
+        {
+            // fetch the key of the last entry added
+            $key = key($this->ar_where);
+            $this->ar_bracket_open = TRUE;
+
+            // add a bracket close
+            $this->ar_where[$key] = '('.$this->ar_where[$key];
+        }
+        elseif ( strtolower($type) == 'close' )
+        {
+            // fetch the key of the last entry added
+            if ($append == 'like')    {
+                end($this->ar_like);
+                $key = key($this->ar_like);
+
+                // add a bracket close
+                   $this->ar_like[$key] .= ')';
+
+                // update the AR cache clauses as well
+                if ($this->ar_caching === TRUE)
+                {
+                    $this->ar_cache_like[$key] = $this->ar_like[$key];
+                }
+            } else {
+                end($this->ar_where);
+                $key = key($this->ar_where);
+
+                // add a bracket close
+                   $this->ar_where[$key] .= ')';
+
+                // update the AR cache clauses as well
+                if ($this->ar_caching === TRUE)
+                {
+                    $this->ar_cache_where[$key] = $this->ar_where[$key];
+                }
+            }
+        }
+        return $this;
+    }  
 }
 
 /* End of file DB_active_rec.php */

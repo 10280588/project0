@@ -16,7 +16,7 @@ class Courses_model extends CI_Model {
     public function get_departments()
     {
         $this->db->select('short_name,dept_number');
-		$query = $this->db->get('Departments');
+		$query = $this->db->get('Department');
 		return $query->result_array();
     }
     
@@ -27,6 +27,26 @@ class Courses_model extends CI_Model {
         $this->db->join('Course_Department','Courses.course_unique = Course_Department.course_unique');
         $this->db->join('Department','Course_Department.dept_number = Department.dept_number');
         $this->db->where('Department.dept_number', $id);
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+    
+    public function get_gened_areas()
+    {
+        $this->db->select('req_number,name');
+		$this->db->from('Requirement');
+		$this->db->where('type', 'General Education');
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+    
+    public function get_gened_area($gid)
+    {
+        $this->db->select('Courses.title,Courses.course_unique,Requirement.name');
+		$this->db->from('Courses');
+		$this->db->join('Course_Requirement','Courses.course_unique = Course_Requirement.course_unique');
+		$this->db->join('Requirement','Course_Requirement.req_number = Requirement.req_number');
+		$this->db->where('Requirement.req_number', $gid);
 		$query = $this->db->get();
 		return $query->result_array();
     }
@@ -72,146 +92,96 @@ class Courses_model extends CI_Model {
 		return $query->result_array();
     }
     
-    public function get_and_search($slug)
-    {   
-        $totalQuery = array();
-        $resultQuery = array();
-            
-        if(str_word_count($slug, 0, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890') != 1) 
+    public function get_search($keywords,$target,$operator)
+    {        
+        $this->db->select('Courses.course_unique, Courses.title');
+        $this->db->from('Courses');
+        
+        if($target == 'faculty')
         {
-            $slugPieces = str_word_count($slug, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
-            
-            $this->db->select('Courses.course_unique, Courses.title');
-            $this->db->from('Courses');
             $this->db->join('Course_Faculty','Courses.course_unique = Course_Faculty.course_unique');
             $this->db->join('Faculty','Course_Faculty.facl_number = Faculty.facl_number');
-            
-            foreach ($slugPieces as $slugPiece)
+        }
+        
+        foreach ($keywords as $keyword)
+        {
+            if($target == 'faculty')
             {
-                $this->db->like('title', $slugPiece);
+                if($operator == 'or')
+                {
+                    $this->db->or_like('(Faculty.first_name', $keyword);
+                }
+                else
+                {
+                    $this->db->like('(Faculty.first_name', $keyword);
+                }
+                $this->db->or_like('Faculty.middle_name', $keyword);
+                $this->db->or_like('Faculty.last_name', $keyword);
+                $this->db->bracket('close','like');
             }
             
-            $this->db->order_by('course_unique','asc');
-            $query = $this->db->get();
-            $totalQuery = $query->result_array();
-            
-            foreach($totalQuery as $tQuery)
+            if($target == 'description')
             {
-                $i = FALSE;
-                
-                foreach($resultQuery as $rQuery)
+                if($operator == 'or')
                 {
-                    if($tQuery['course_unique'] == $rQuery['course_unique'])
-                    {
-                    $i=TRUE;
-                    }
+                    $this->db->or_like('Courses.description', $keyword);
                 }
-                
-                if($i === FALSE)
+                else
                 {
-                    array_push($resultQuery, $tQuery);
-                }                
+                    $this->db->like('Courses.description', $keyword);  
+                }        
+            }
+            
+            if($target == 'title')
+            {
+                if($operator == 'or')
+                {
+                    $this->db->or_like('Courses.title', $keyword); 
+                }
+                else
+                {
+                    $this->db->like('Courses.title', $keyword); 
+                }         
             }
         }
         
-        else
-        {
-            $this->db->select('Courses.course_unique, Courses.title');
-            $this->db->from('Courses');
-            $this->db->join('Course_Faculty','Courses.course_unique = Course_Faculty.course_unique');
-            $this->db->join('Faculty','Course_Faculty.facl_number = Faculty.facl_number');
-            $this->db->like('title', $slug);
-            $this->db->order_by('course_unique','asc');
-	        $query = $this->db->get();
-	        $totalQuery = $query->result_array();
-	        foreach($totalQuery as $tQuery)
-            {
-                $i = FALSE;
-                foreach($resultQuery as $rQuery)
-                {
-                    if($tQuery['course_unique'] == $rQuery['course_unique'])
-                    {
-                    $i=TRUE;
-                    }
-                }
-                if($i === FALSE)
-                {
-                    array_push($resultQuery, $tQuery);
-                }
-            }
-	    }
-	    
-        return $resultQuery;		
+        $this->db->order_by('course_unique','asc');
+        $query = $this->db->get();
+        return $query->result_array();
     }
     
-    public function get_or_search($slug)
-    {   
-        $totalQuery = array();
-        $resultQuery = array();
-            
-        if(str_word_count($slug, 0, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890') != 1) 
-        {
-            $slugPieces = str_word_count($slug, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
-            foreach ($slugPieces as $slugPiece)
-            {
-                $this->db->select('Courses.course_unique, Courses.title');
-                $this->db->from('Courses');
-                $this->db->join('Course_Faculty','Courses.course_unique = Course_Faculty.course_unique');
-                $this->db->join('Faculty','Course_Faculty.facl_number = Faculty.facl_number');
-                $this->db->like('title', $slugPiece);
-                $this->db->order_by('course_unique','asc');
-	            $query = $this->db->get();
-	            $totalQuery = array_merge($totalQuery, $query->result_array());
-            }
-            
-            foreach($totalQuery as $tQuery)
-            {
-                $i = FALSE;
-                
-                foreach($resultQuery as $rQuery)
-                {
-                    if($tQuery['course_unique'] == $rQuery['course_unique'])
-                    {
-                    $i=TRUE;
-                    }
-                }
-                
-                if($i === FALSE)
-                {
-                    array_push($resultQuery, $tQuery);
-                }                
-            }
-        }
+    public function search_time($beginTime, $endTime)
+    {
+        $this->db->select('Courses.course_unique,Courses.title');
+        $this->db->from('Courses');
+        $this->db->join('Schedule', 'Courses.course_unique = Schedule.course_unique');
+        $this->db->where('begin_time >=', $beginTime);
+        $this->db->where('end_time <=', $endTime);
+        $query = $this->db->get();
+        return $query->result_array();        
+    }
         
-        else
+    public function merge_courses($totalArray, $addArray)
+    {
+        foreach($addArray as $add)
         {
-            $this->db->select('Courses.course_unique, Courses.title');
-            $this->db->from('Courses');
-            $this->db->join('Course_Faculty','Courses.course_unique = Course_Faculty.course_unique');
-            $this->db->join('Faculty','Course_Faculty.facl_number = Faculty.facl_number');
-            $this->db->like('title', $slug);
-            $this->db->order_by('course_unique','asc');
-	        $query = $this->db->get();
-	        $totalQuery = $query->result_array();
-	        foreach($totalQuery as $tQuery)
+            $i = FALSE;
+            
+            foreach($totalArray as $total)
             {
-                $i = FALSE;
-                
-                foreach($resultQuery as $rQuery)
+                if($add['course_unique'] == $total['course_unique'])
                 {
-                    if($tQuery['course_unique'] == $rQuery['course_unique'])
-                    {
-                        $i=TRUE;
-                    }
-                }
-                if($i === FALSE)
-                {
-                    array_push($resultQuery, $tQuery);
+                    $i=TRUE;
                 }
             }
-	    }
-	    
-        return $resultQuery;		
+            
+            if($i === FALSE)
+            {
+                array_push($totalArray, $add);
+            }                
+        }
+    
+        return $totalArray;		
     }
 }
 ?>
