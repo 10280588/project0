@@ -133,5 +133,26 @@ class Users_model extends CI_Model {
             return FALSE;
         }
     }
+    
+    public function check_enrolled($uid,$cid)
+    {
+        $this->db->select('Courses.course_unique, Courses.title');
+        $this->db->from('Courses');
+        $this->db->join('Course_User','Courses.course_unique = Course_User.course_unique');
+        $this->db->join('User','Course_User.user_id = User.user_id');
+        $this->db->where('User.user_id',$uid);
+        $this->db->where('Course.course_unique',$cid);
+        $query = $this->db->get();
+        $resultArray = $query->result_array();
+        if(empty($resultArray))
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+        }
+        
+    }
 }
 ?>
