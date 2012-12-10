@@ -6,6 +6,7 @@ class Users extends CI_Controller {
 		parent::__construct();
 		$this->load->model('courses_model');
 		$this->load->model('users_model');
+        $this->load->helper('url');
 	}
 	
 	public function my_courses()
@@ -20,9 +21,7 @@ class Users extends CI_Controller {
 	    $uid = $this->input->cookie('uid');
 	    if ($uid != FALSE)
 	    {
-	        $this->load->view('templates/header');
-	        $this->load->view('home_view');
-	        $this->load->view('templates/footer');
+	        redirect('home');
 	    }
 	    else
 	    {
@@ -76,14 +75,7 @@ class Users extends CI_Controller {
 	    
 	    $this->users_model->add_course($uid,$cid);
 	    
-	    $data['courses'] = $this->courses_model->get_course($cid);
-		$data['faculty'] = $this->courses_model->get_course_facl($cid);
-		$data['schedule'] = $this->courses_model->get_course_schedule($cid);
-	    $data['locations'] = $this->courses_model->get_course_location($cid);
-		
-		$this->load->view('templates/header');
-		$this->load->view('pages/individual_view', $data);
-		$this->load->view('templates/footer');
+	    redirect('courses/course/'.$cid);
 	}
 	
 	public function remove_course($cid = FALSE)
@@ -104,9 +96,7 @@ class Users extends CI_Controller {
 	    
 	    $data['courses'] = $this->users_model->get_user_courses($uid);
 	    
-	    $this->load->view('templates/header');
-	    $this->load->view('pages/my_courses_view', $data);
-	    $this->load->view('templates/footer');
+	    redirect('users/my_courses');
 	}
 }
 
