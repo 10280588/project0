@@ -66,16 +66,7 @@ class Users_model extends CI_Model {
     
     public function create_uid_cookie($uid)
     {     
-        $cookie = array(
-        'name'   => 'uid',
-        'value'  => $uid,
-        'expire' => '0',
-        'domain' => '.project0',
-        'path'   => '/',
-        'secure' => TRUE
-        );
-
-        $this->input->set_cookie($cookie);
+        setcookie('uid',$uid);
     }
     
     public function delete_uid_cookie()
@@ -133,13 +124,13 @@ class Users_model extends CI_Model {
         $query = $this->db->get();
         $tquery = $query->result_array();
         
-        if(empty($tquery))
+        if(! empty($tquery))
         {
-            return FALSE;
+            return TRUE;
         }
         else
         {
-            return TRUE;
+            return FALSE;
         }
     }
 }

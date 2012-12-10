@@ -86,19 +86,19 @@ class Courses extends CI_Controller {
         if($facultyCheck != FALSE)
         {
             $facultyArray = $this->courses_model->get_search($keywords, 'faculty', $operator);
-            $totalArray = $this->courses_model->merge_courses($totalArray, $facultyArray);
+            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $facultyArray);
         }
         
         if($titleCheck != FALSE)
         {
             $titleArray = $this->courses_model->get_search($keywords, 'title', $operator);
-            $totalArray = $this->courses_model->merge_courses($totalArray, $titleArray);
+            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $titleArray);
         }
         
         if($descriptionCheck != FALSE)
         {
             $descriptionArray = $this->courses_model->get_search($keywords, 'description', $operator);
-            $totalArray = $this->courses_model->merge_courses($totalArray, $descriptionArray);
+            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $descriptionArray);
         }
         
         if($beginTime != FALSE or $endTime != FALSE)
@@ -106,32 +106,32 @@ class Courses extends CI_Controller {
             if($beginTime != FALSE and $endTime != FALSE)
             {
                 $timeArray = $this->courses_model->search_time($beginTime, $endTime);
-                $totalArray = $this->courses_model->merge_courses($totalArray, $timeArray);
+                $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
             }
             
             elseif($beginTime != FALSE and $endTime == FALSE)
             {
                 $timeArray = $this->courses_model->search_time($beginTime, 2400);
-                $totalArray = $this->courses_model->merge_courses($totalArray, $timeArray);
+                $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
             }
             
             elseif($beginTime == FALSE and $endTime != FALSE)
             {
                 $timeArray = $this->courses_model->search_time(0, $endTime);
-                $totalArray = $this->courses_model->merge_courses($totalArray, $timeArray);
+                $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
             }
         }
         
         if($department != FALSE)
         {
             $departmentArray = $this->courses_model->get_department($department);
-            $totalArray = $this->courses_model->merge_courses($totalArray, $departmentArray);
+            $totalArray = $this->courses_model->merge_courses_and($totalArray, $departmentArray);
         }
         
         if($gened != FALSE)
         {
             $genedArray = $this->courses_model->get_gened($gened);
-            $totalArray = $this->courses_model->merge_courses($totalArray, $genedArray);
+            $totalArray = $this->courses_model->merge_courses_and($totalArray, $genedArray);
         }
         
 	    $data['courses'] = $totalArray;

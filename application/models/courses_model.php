@@ -161,7 +161,7 @@ class Courses_model extends CI_Model {
         return $query->result_array();        
     }
         
-    public function merge_courses($totalArray, $addArray)
+    public function merge_courses_xor($totalArray, $addArray)
     {
         foreach($addArray as $add)
         {
@@ -182,6 +182,29 @@ class Courses_model extends CI_Model {
         }
     
         return $totalArray;		
+    }
+    
+    public function merge_courses_and($totalArray, $addArray)
+    {
+        foreach($addArray as $add)
+        {
+            $i = FALSE;
+            
+            foreach($totalArray as $total)
+            {
+                if($add['course_unique'] == $total['course_unique'])
+                {
+                    $i=TRUE;
+                }
+            }
+            
+            if($i === TRUE)
+            {
+                array_push($totalAndArray, $add);
+            }                
+        }
+    
+        return $totalAndArray;		
     }
 }
 ?>
