@@ -5,6 +5,7 @@ class Courses extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('courses_model');
+		$this->load->helper('url');
 		
 	}
 
@@ -27,6 +28,7 @@ class Courses extends CI_Controller {
 		$data['faculty'] = $this->courses_model->get_course_facl($id);
 		$data['schedule'] = $this->courses_model->get_course_schedule($id);
 	    $data['locations'] = $this->courses_model->get_course_location($id);
+		
 		
 		$this->load->view('templates/header');
 		$this->load->view('pages/individual_view', $data);

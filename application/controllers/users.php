@@ -13,7 +13,9 @@ class Users extends CI_Controller {
 	{
 	    $uid = $this->input->cookie('uid');
 	    $data['courses'] = $this->users_model->get_user_courses($uid);
+	   	$this->load->view('templates/header');
 	    $this->load->view('pages/my_courses_view', $data);
+	    $this->load->view('templates/footer');
 	}
 
 	public function login()

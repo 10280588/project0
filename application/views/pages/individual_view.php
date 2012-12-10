@@ -12,7 +12,9 @@ $sched = current($schedule);
 	<div data-role="header" data-position="inline">
 	    <a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
 	    <h1>Course Info</h1>
-	    <a href="index.html" data-icon="plus" class="ui-btn-right">Add</a>
+	    
+	        <a  href="<?php echo site_url('users/add_course/4') ?>" data-icon="plus" class="ui-btn-right">Add</a>
+	  
 	</div>
     <!-- end of header -->
     

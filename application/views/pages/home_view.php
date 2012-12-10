@@ -11,8 +11,8 @@
         <ul data-role="listview" data-inset="true" >
             <li  data-role="list-divider"  ></li>
 	        <li><a href="#advancedSearch" data-transition="slide">Advanced Search</a></li>
-	        <li><a href="index.php/courses" data-transition="slide">All Courses</a></li>
-	        <li><a href="#myCourses"  data-transition="slide">My Courses</a></li>
+	        <li><a href="<?php echo site_url('courses') ?>" data-transition="slide">All Courses</a></li>
+	        <li><a href="<?php echo site_url('users/my_courses') ?>"  data-transition="slide">My Courses</a></li>
 	        <li><a href="#contactInfo"  data-transition="slide">Contact Info</a></li>
         </ul>
     </div><!--- end of content --> 
