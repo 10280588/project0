@@ -6,6 +6,8 @@ class Courses extends CI_Controller {
 		parent::__construct();
 		$this->load->model('courses_model');
 		$this->load->helper('url');
+		$this->load->model('users_model');
+
 		
 	}
 
@@ -19,6 +21,7 @@ class Courses extends CI_Controller {
 
 	public function course($id = FALSE)
 	{
+	    $uid = $this->input->cookie('uid');
 	    if($id === FALSE)
 	    {
 	            show_404();
@@ -28,6 +31,7 @@ class Courses extends CI_Controller {
 		$data['faculty'] = $this->courses_model->get_course_facl($id);
 		$data['schedule'] = $this->courses_model->get_course_schedule($id);
 	    $data['locations'] = $this->courses_model->get_course_location($id);
+	    $data['enrolled'] = $this->users_model->check_enrolled($uid,$id);
 		
 		
 		$this->load->view('templates/header');
