@@ -140,13 +140,20 @@ class Courses extends CI_Controller {
             $totalArray = $this->courses_model->merge_courses_and($totalArray, $genedArray);
         }
         
-	    $data['courses'] = $totalArray;
+	    $data['results'] = $totalArray;
 	    $this->load->view('templates/header');
 		$this->load->view('pages/list_search_result_view', $data);
 		$this->load->view('templates/footer');       
 	}
 	
-	
+	public function advanced_search()
+	{
+	    $data['departments'] = $this->courses_model->get_departments(); 
+	 	$data['geneds'] = $this->courses_model->get_gened_areas(); 
+	 	$this->load->view('templates/header');
+		$this->load->view('pages/advanced_search_view', $data);
+		$this->load->view('templates/footer');
+	}
 }
 
 

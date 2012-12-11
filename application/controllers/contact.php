@@ -1,5 +1,5 @@
 <?php
-class Home extends CI_Controller {
+class Contact extends CI_Controller {
 
 	
 
@@ -7,9 +7,7 @@ class Home extends CI_Controller {
 	{
 	    $this->load->helper('url');
 		$this->load->view('templates/header');
-		$this->load->view('pages/home_view');
-	
-	
+		$this->load->view('pages/contact_information_view');
 		$this->load->view('templates/footer');
 	}
 	
