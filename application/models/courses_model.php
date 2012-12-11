@@ -9,6 +9,7 @@ class Courses_model extends CI_Model {
 	public function get_courses()
     {
         $this->db->select('title,course_unique');
+        $this->db->order_by('title','asc');
 		$query = $this->db->get('Courses');
 		return $query->result_array();
     }
