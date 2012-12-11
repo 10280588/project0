@@ -6,6 +6,7 @@ class Courses extends CI_Controller {
 		parent::__construct();
 		$this->load->model('courses_model');
 		$this->load->helper('url');
+		$this->load->helper('logingit ');
 		$this->load->model('users_model');
 
 		
