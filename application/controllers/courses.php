@@ -76,18 +76,25 @@ class Courses extends CI_Controller {
 	public function search()
 	{
 	    $totalArray = array();
-	    $search = $this->input->get('searchHome');
+	    $search = $this->input->post('searchHome');
 	    $keywords = str_word_count($search, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
-        $operator = $this->input->get('operator');
-        $facultyCheck = $this->input->get('faculty_check');
-        $titleCheck = $this->input->get('title_check');
-        $descriptionCheck = $this->input->get('description_check');
+        $operator = $this->input->post('operator');
+        $facultyCheck = $this->input->post('faculty_check');
+        $titleCheck = $this->input->post('title_check');
+        $descriptionCheck = $this->input->post('description_check');
         
-	    $beginTime = $this->input->get('begin_time');
-        $endTime = $this->input->get('end_time');
+        $day = $this->input->post('day');
+	    $beginTime = $this->input->post('begin_time');
+        $endTime = $this->input->post('end_time');
         
-        $department = $this->input->get('department');
-        $gened = $this->input->get('gened');
+        $department = $this->input->post('department');
+        $gened = $this->input->post('gened');
+        
+        if(($facultyCheck != FALSE) && ($titleCheck != FALSE) && ($descriptionCheck != FALSE))
+        {
+            $coursesArray = $this->courses_model->get_courses();
+            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $coursesArray);
+        }
         
         if($facultyCheck != FALSE)
         {
@@ -105,6 +112,12 @@ class Courses extends CI_Controller {
         {
             $descriptionArray = $this->courses_model->get_search($keywords, 'description', $operator);
             $totalArray = $this->courses_model->merge_courses_xor($totalArray, $descriptionArray);
+        }
+        
+        if($day != FALSE)
+        {
+            $dayArray = $this->courses_model->search_day($day);
+            $totalArray = $this->courses_model->merge_courses_and($totalArray, $dayArray);
         }
         
         if($beginTime != FALSE or $endTime != FALSE)

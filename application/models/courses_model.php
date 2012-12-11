@@ -150,6 +150,16 @@ class Courses_model extends CI_Model {
         return $query->result_array();
     }
     
+    public function search_day($day)
+    {
+        $this->db->select('Courses.course_unique,Courses.title');
+        $this->db->from('Courses');
+        $this->db->join('Schedule', 'Courses.course_unique = Schedule.course_unique');
+        $this->db->where('day', $day);
+        $query = $this->db->get();
+        return $query->result_array();        
+    }
+    
     public function search_time($beginTime, $endTime)
     {
         $this->db->select('Courses.course_unique,Courses.title');
