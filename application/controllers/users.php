@@ -7,10 +7,12 @@ class Users extends CI_Controller {
 		$this->load->model('courses_model');
 		$this->load->model('users_model');
         $this->load->helper('url');
+        $this->load->helper('login');
 	}
 	
 	public function my_courses()
 	{
+	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    $data['courses'] = $this->users_model->get_user_courses($uid);
 	   	$this->load->view('templates/header');
@@ -61,12 +63,14 @@ class Users extends CI_Controller {
 	
 	public function logout()
 	{
-	    $this->users_model->remove_uid_cookie();
+	    check_logged_in();
+	    $this->users_model->delete_uid_cookie();
 	    redirect('users/login');
 	}
 	
 	public function add_course($cid = FALSE)
 	{
+	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    
 	    if($uid === FALSE)
@@ -86,6 +90,7 @@ class Users extends CI_Controller {
 	
 	public function remove_course($cid = FALSE)
 	{
+	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    
 	    if($uid === FALSE)

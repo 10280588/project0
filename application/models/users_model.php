@@ -66,7 +66,7 @@ class Users_model extends CI_Model {
     
     public function create_uid_cookie($uid)
     {     
-        setcookie('uid',$uid);
+        setcookie('uid', $uid, 0, '/');
     }
     
     public function delete_uid_cookie()

@@ -13,6 +13,7 @@ class Courses extends CI_Controller {
 
 	public function index()
 	{
+	    check_logged_in();
 		$data['courses'] = $this->courses_model->get_courses();
 		$this->load->view('templates/header');
 		$this->load->view('pages/list_view', $data);
@@ -21,6 +22,7 @@ class Courses extends CI_Controller {
 
 	public function course($id = FALSE)
 	{
+	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    if($id === FALSE)
 	    {
@@ -41,6 +43,7 @@ class Courses extends CI_Controller {
 	
 	public function searchresult()
 	{
+	    check_logged_in();
 	    $slug = $this->input->get('searchHome');
 	    $operator = $this->input->get('operator');
 	    
@@ -75,6 +78,7 @@ class Courses extends CI_Controller {
 	
 	public function search()
 	{
+	    check_logged_in();
 	    $totalArray = array();
 	    $search = $this->input->post('searchHome');
 	    $keywords = str_word_count($search, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
@@ -161,6 +165,7 @@ class Courses extends CI_Controller {
 	
 	public function advanced_search()
 	{
+	    check_logged_in();
 	    $data['departments'] = $this->courses_model->get_departments(); 
 	 	$data['geneds'] = $this->courses_model->get_gened_areas(); 
 	 	$this->load->view('templates/header');
