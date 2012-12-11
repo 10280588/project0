@@ -20,13 +20,13 @@ class Users extends CI_Controller {
 
 	public function login()
 	{
-	    $uid = $this->input->cookie('uid');
-	    if ($uid != FALSE)
-	    {
-	        redirect('home');
-	    }
+	    if(isset($_COOKIE['uid']))
+        { 
+            redirect(home); 
+        }
 	    else
 	    {
+	        $uid = $this->input->cookie('uid');
 	        $this->load->helper('form');
 	        $this->load->library('form_validation');	    
 	        $this->form_validation->set_rules('student_number', 'Student Number', 'required');
@@ -47,9 +47,7 @@ class Users extends CI_Controller {
 	            if($loginCheck == TRUE)
 	            {
 	                $cookieAnswer = $this->users_model->create_uid_cookie($uid);
-	                $this->load->view('templates/header');
-	                $this->load->view('pages/home_view');
-	                $this->load->view('templates/footer');
+	                redirect('home');
 	            }
 		        else
 		        {
@@ -59,6 +57,12 @@ class Users extends CI_Controller {
 		        }
 		    }
 		}
+	}
+	
+	public function logout()
+	{
+	    $this->users_model->remove_uid_cookie();
+	    redirect('users/login');
 	}
 	
 	public function add_course($cid = FALSE)
