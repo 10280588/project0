@@ -83,7 +83,7 @@
 	</div>
 	<!-- end of content -->
 	
-	<!-- begin of footer -->
+	  <!-- begin of footer -->
     <div data-role="footer" data-position="fixed">
 	    <div data-role="navbar">
 		    <ul>

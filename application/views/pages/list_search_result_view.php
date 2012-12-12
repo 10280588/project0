@@ -82,4 +82,19 @@
 	    </ul>
 	</div>
 	<!-- end of content -->
+	
+	  <!-- begin of footer -->
+    <div data-role="footer" data-position="fixed">
+	    <div data-role="navbar">
+		    <ul>
+			    <li><a href="<?php echo site_url('home')?>"  data-icon="home">Home</a></li>
+			    <li><a href="<?php echo site_url('courses/advanced_search')?>"  data-icon="search">Search</a></li>
+			    <li><a href="<?php echo site_url('users/my_courses')?>"  data-icon="info">My Courses</a></li>
+			    <li><a href="<?php echo site_url('users/logout')?>"  data-icon="minus">Logout</a></li>
+		    </ul>
+	    </div>
+    </div>
+    <!-- end of footer -->
+
+</div>
 

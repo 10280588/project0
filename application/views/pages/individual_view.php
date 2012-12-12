@@ -13,11 +13,10 @@ $sched = current($schedule);
 	    <a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
 	    <h1><?php echo $enrolled ?></h1>
 	    
-	    <?php if ($enrolled === TRUE): ?>
+	    <?php if ($enrolled === "yes"): ?>
 	    	     <a  href="<?php echo site_url(array('users','remove_course',$course['course_unique'])) ?>" data-icon="minus" class="ui-btn-right">DEL</a>
 	    <?php else: ?>
-	    
-                 <a  href="<?php echo site_url(array('users','add_course',$course['course_unique'])) ?>" data-icon="plus" class="ui-btn-right">Add</a>
+	             <a  href="<?php echo site_url(array('users','add_course',$course['course_unique'])) ?>" data-icon="plus" class="ui-btn-right">Add</a>
 	    <?php endif ?>
 	  
 	</div>
@@ -129,10 +128,10 @@ $sched = current($schedule);
     <div data-role="footer" data-position="fixed">
 	    <div data-role="navbar">
 		    <ul>
-			    <li><a href="/"  data-icon="home">Home</a></li>
-			    <li><a href="#"  data-icon="search">Search</a></li>
-			    <li><a href="#"  data-icon="alert">Basket</a></li>
-			    <li><a href="#"  data-icon="info">Info</a></li>
+			    <li><a href="<?php echo site_url('home')?>"  data-icon="home">Home</a></li>
+			    <li><a href="<?php echo site_url('courses/advanced_search')?>"  data-icon="search">Search</a></li>
+			    <li><a href="<?php echo site_url('users/my_courses')?>"  data-icon="info">My Courses</a></li>
+			    <li><a href="<?php echo site_url('users/logout')?>"  data-icon="minus">Logout</a></li>
 		    </ul>
 	    </div>
     </div>
