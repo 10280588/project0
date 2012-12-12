@@ -3,7 +3,7 @@
     
     <!-- begin of header -->
 	<div data-role="header">
-	<a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
+	<a href="<?php echo site_url('home')?>"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
 	<h1>Page Title</h1>
 	<a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
     </div>

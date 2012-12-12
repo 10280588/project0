@@ -2,7 +2,7 @@
     
     <!-- begin of header -->
 	<div data-role="header" data-position="inline">
-	    <a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
+	    <a href="<?php echo site_url('home')?>" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back</a>
 	    <h1>Advanced Search</h1>
 	</div>
     <!-- end of header -->
