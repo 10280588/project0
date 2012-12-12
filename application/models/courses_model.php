@@ -197,6 +197,8 @@ class Courses_model extends CI_Model {
     
     public function merge_courses_and($totalArray, $addArray)
     {
+        $totalAndArray = array();
+        
         foreach($addArray as $add)
         {
             $i = FALSE;

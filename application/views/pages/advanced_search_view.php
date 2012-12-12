@@ -9,7 +9,7 @@
     
     <!-- begin of content -->
     <div data-role="content" class="ui-content" role="main">
-        <form action="<?php echo  site_url('courses/search_test');?>" method="get">
+        <form action="<?php echo  site_url('courses/search');?>" method="post">
             <input type="text" data-type="search" name="searchHome" id="search-basic" value="" class="ui-input-text ui-body-a">
             
             <div  data-role="fieldcontain">
@@ -19,7 +19,7 @@
 					<label for="title_check">Title</label>
 
 					<input type="checkbox" name="description_check" id="description_check" class="custom" />
-					<label for="description_check">Department</label>
+					<label for="description_check">Description</label>
 					
 					<input type="checkbox" name="faculty_check" id="faculty_check" class="custom" />
 					<label for="faculty_check">Faculty</label>
@@ -30,20 +30,20 @@
              
             <div data-role="fieldcontain">
 	            <select name="department" id="department">
-		            <option value="FALSE">All Departments</option>
+		            <option value='all'>All Departments</option>
 		            
 		            <?php foreach ($departments as $department):?>
-		            <option value="<?php $department['dept_number']?>"> <?php echo $department['short_name']?></option>
+		            <option value="<?php echo $department['dept_number']?>"> <?php echo $department['short_name']?></option>
 	                <?php endforeach ?>
 	                
 	            </select>
             </div>
             <div data-role="fieldcontain">
 	            <select name="gened" id="gened">
-		            <option value="FALSE">All Gen Ed areas</option>
+		            <option value='all'>All Gen Ed areas</option>
 		            
 		            <?php foreach ($geneds as $gened):?>
-		            <option value="<?php $gened['req_number']?>"> <?php echo $gened['name']?></option>
+		            <option value="<?php echo $gened['req_number']?>"> <?php echo $gened['name']?></option>
 	                <?php endforeach ?>
 	                
 		        </select>
@@ -52,7 +52,7 @@
                 <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
                     <label for="day">Day</label>
                     <select name="day"  id="day">
-                        <option value="FALSE">day</option>
+                        <option value='all'>day</option>
                         <option value="1">Mon</option>
                         <option value="2">Tue</option>
                         <option value="3">Wed</option>
@@ -63,7 +63,7 @@
                     </select>
                     <label for="begin_time">start</label>
                     <select name="begin_time"  id="begin_time">
-                        <option value="FALSE">start</option>
+                        <option value='all'>start</option>
                         
                         <?php $h=0; while ($h <= 23): ?>
 		               
@@ -78,7 +78,7 @@
                     </select>
                     <label for="end_time">Year</label>
                     <select name="end_time"  id="end_time">
-                        <option value="FALSE">end</option>
+                        <option value='all'>end</option>
                         <?php $h=0; while ($h <= 23): ?>
 		               
 		                <?php $q=0; while ($q <= 3):?>
