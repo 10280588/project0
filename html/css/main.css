@@ -26,7 +26,9 @@ body{
 
 }
 
-#home .ui-content{background:#a23138;}
+
+
+#home {background:#a23138;}
 
 .white{
     color:#fff;
@@ -175,6 +177,15 @@ border-bottom:8px solid #6c6c6c;
 #login h3{margin:0; padding:0; margin-top:5px; margin-bottom:10px;}
 
 /* end of login page */
+
+
+/* advanced search  */
+#time{
+margin:0 auto;
+width:320px;
+}
+
+
 
 
 

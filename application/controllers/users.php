@@ -103,7 +103,7 @@ class Users extends CI_Controller {
 	        show_404();
 	    }
 	    
-	    $this->users_model->remove_course($cid = FALSE);
+	    $this->users_model->remove_course($uid,$cid);
 	    
 	    $data['courses'] = $this->users_model->get_user_courses($uid);
 	    

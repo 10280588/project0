@@ -49,7 +49,7 @@
 		        </select>
             </div>
             <div id="time" data-role="fieldcontain">
-                <fieldset data-role="controlgroup" data-type="horizontal">
+                <fieldset data-role="controlgroup" data-mini="true" data-type="horizontal">
                     <label for="day">Day</label>
                     <select name="day"  id="day">
                         <option value="FALSE">day</option>
@@ -95,18 +95,19 @@
         </form>
     </div><!--- end of content --> 
     
-    <!-- begin of footer -->
+      <!-- begin of footer -->
     <div data-role="footer" data-position="fixed">
 	    <div data-role="navbar">
 		    <ul>
-			    <li><a href="/"  data-icon="home">Home</a></li>
-			    <li><a href="#"  data-icon="search">Search</a></li>
-			    <li><a href="#"  data-icon="alert">Basket</a></li>
-			    <li><a href="#"  data-icon="info">Info</a></li>
+			    <li><a href="<?php echo site_url('home')?>"  data-icon="home">Home</a></li>
+			    <li><a href="<?php echo site_url('courses/advanced_search')?>"  data-icon="search">Search</a></li>
+			    <li><a href="<?php echo site_url('users/my_courses')?>"  data-icon="info">My Courses</a></li>
+			    <li><a href="<?php echo site_url('users/logout')?>"  data-icon="minus">Logout</a></li>
 		    </ul>
 	    </div>
     </div>
     <!-- end of footer -->
+
 
 </div><!--- end of page -->
 

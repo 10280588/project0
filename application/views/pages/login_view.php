@@ -13,7 +13,7 @@
     
     <form action="login" method="post">
     <h3>Student number:</h3>
-    <input type="text" name="student_number" id="student_number" value="<?php echo set_value('student_number'); ?>"  />
+    <input type="tel"  name="student_number" id="student_number" value="<?php echo set_value('student_number'); ?>"  />
     <h3>Password:</h3>
     <input type="password" name="password" id="password" value=""  />
     </br>
