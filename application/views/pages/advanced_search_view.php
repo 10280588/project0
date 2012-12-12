@@ -9,7 +9,7 @@
     
     <!-- begin of content -->
     <div data-role="content" class="ui-content" role="main">
-        <form action="<?php echo  site_url('courses/search');?>" method="get">
+        <form action="<?php echo  site_url('courses/search_test');?>" method="get">
             <input type="text" data-type="search" name="searchHome" id="search-basic" value="" class="ui-input-text ui-body-a">
             
             <div  data-role="fieldcontain">

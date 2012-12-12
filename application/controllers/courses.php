@@ -77,6 +77,27 @@ class Courses extends CI_Controller {
 		$this->load->view('templates/footer');
 	}	
 	
+	public function search_test()
+	{
+	    $totalArray = array();
+	    $search = $this->input->post('searchHome');
+	    $data['search'] = $this->input->post('searchHome');
+	    $data['keywords'] = str_word_count($search, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
+        $data['operator'] = $this->input->post('operator');
+        $data['facultyCheck'] = $this->input->post('faculty_check');
+        $data['titleCheck'] = $this->input->post('title_check');
+        $data['descriptionCheck'] = $this->input->post('description_check');
+        
+        $data['day'] = $this->input->post('day');
+	    $data['beginTime'] = $this->input->post('begin_time');
+        $data['endTime'] = $this->input->post('end_time');
+        
+        $data['department'] = $this->input->post('department');
+        $data['gened'] = $this->input->post('gened');
+        
+        $this->load->view('test_view',$data);
+	}
+	
 	public function search()
 	{
 	    check_logged_in();
