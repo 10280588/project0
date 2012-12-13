@@ -44,11 +44,12 @@ class Users extends CI_Controller {
 	        {
 	            $uid = $this->input->post('student_number');
 	            $pass = $this->input->post('password');
+	            $cookieCheck = $this->input->post('cookieCheck');
 	            $loginCheck = $this->users_model->login_check($uid,sha1($pass));
 	            
 	            if($loginCheck == TRUE)
 	            {
-	                $cookieAnswer = $this->users_model->create_uid_cookie($uid);
+	                $cookieAnswer = $this->users_model->create_uid_cookie($uid,$cookieCheck);
 	                redirect('home');
 	            }
 		        else

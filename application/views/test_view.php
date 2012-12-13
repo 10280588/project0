@@ -1,6 +1,6 @@
 <p>loaded</p>
 <?php 
-        echo '<h1>operator '. $operator .'</h1>'; 
+        /*echo '<h1>operator '. $operator .'</h1>'; 
         echo '<h1>checks: '. $checks .'</h1>';
         echo '<h1>facultycheck '. $facultyCheck .'</h1>'; 
         echo '<h1>titlecheck '. $titleCheck .'</h1>'; 
@@ -17,7 +17,9 @@
         foreach($results as $course)
         {
             echo '<h1>'. $course['title'] .'</h1>';
-        }
+        }*/
+        
+        echo print_r($results);
  ?>
 <p>ended</p>
 

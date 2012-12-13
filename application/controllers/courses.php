@@ -7,6 +7,7 @@ class Courses extends CI_Controller {
 		$this->load->model('courses_model');
 		$this->load->helper('url');
 		$this->load->helper('login');
+		$this->load->helper('courses');
 		$this->load->model('users_model');
 
 		
@@ -227,6 +228,7 @@ class Courses extends CI_Controller {
             }         
         }
         
+        usort($totalArray, 'alfabetize_courses');
 	    $data['results'] = $totalArray;
 	    $this->load->view('templates/header');
 		$this->load->view('pages/list_search_result_view', $data);

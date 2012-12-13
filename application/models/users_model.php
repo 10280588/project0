@@ -64,9 +64,16 @@ class Users_model extends CI_Model {
         $this->db->insert('User', $user); 
     }     
     
-    public function create_uid_cookie($uid)
+    public function create_uid_cookie($uid,$cookieCheck)
     {     
-        setcookie('uid', $uid, 0, '/');
+        if($cookieCheck === FALSE)
+        {
+            setcookie('uid', $uid, 0, '/');
+        }
+        else
+        {
+            setcookie('uid', $uid, time()+(3600*24*365), '/');
+        }
     }
     
     public function delete_uid_cookie()
@@ -92,6 +99,7 @@ class Users_model extends CI_Model {
         $this->db->join('Course_User','Courses.course_unique = Course_User.course_unique');
         $this->db->join('User','Course_User.user_id = User.user_id');
         $this->db->where('User.user_id',$uid);
+        $this->db->order_by('Courses.title','asc');
         $query = $this->db->get();
         return $query->result_array();
     }
