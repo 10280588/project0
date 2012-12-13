@@ -35,11 +35,12 @@ class Courses extends CI_Controller {
 		$data['schedule'] = $this->courses_model->get_course_schedule($id);
 	    $data['locations'] = $this->courses_model->get_course_location($id);
 	    $data['enrolled'] = $this->users_model->check_enrolled($uid,$id);
-		
+		$this->users_model->add_to_last_ten($uid, $id);
 		
 		$this->load->view('templates/header');
 		$this->load->view('pages/individual_view', $data);
 		$this->load->view('templates/footer');
+			
 	}
 	
 	public function searchresult()

@@ -68,7 +68,7 @@
 
     <!-- begin of content -->
     <div data-role="content">
-	<ul data-role="listview"  data-autodividers="true" data-filter='true'>
+	<ul data-role="listview"  data-autodividers="true" data-filter="true">
 		<?php $i = 0; ?>
 		
 		<?php foreach ($courses as $course): ?>

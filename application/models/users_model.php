@@ -154,5 +154,23 @@ class Users_model extends CI_Model {
         }
         
     }
+    
+    public function get_last_ten($uid)
+    {
+        $this->db->select('Recently_Viewed.course_unique, Courses.title');
+        $this->db->from('Recently_Viewed');
+        $this->dn->where('Recently_Viewed.user_id',$uid);
+        $this->db->order_by("time_viewed", "desc"); 
+        $this->db->limit(10);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+        
+        
+    public function add_to_last_ten($uid,$cid) 
+    {
+        
+    }
+    
 }
 ?>
