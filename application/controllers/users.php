@@ -110,5 +110,16 @@ class Users extends CI_Controller {
 	    
 	    redirect('users/my_courses');
 	}
+	
+	public function last_ten()
+	{
+	    check_logged_in();
+	    $uid = $this->input->cookie('uid');
+	    $data['last_ten'] = $this->users_model->last_ten($uid);
+	   	$this->load->view('templates/header');
+	    $this->load->view('pages/my_courses_view', $data);
+	    $this->load->view('templates/footer');
+	
+	}
 }
 
