@@ -14,8 +14,8 @@
 	        <li><a href="<?php echo site_url('courses/advanced_search') ?>" >Advanced Search</a></li>
 	        <li><a href="<?php echo site_url('courses')?>">All Courses</a></li>
 	        <li><a href="<?php echo site_url('users/my_courses')?>">My Courses</a></li>
+	        <li><a href="<?php echo site_url('users/last_ten')?> ">Recently Viewed</a></li>
 	        <li><a href="<?php echo site_url('contact')?> ">Contact Info</a></li>
-	        <li><a href="<?php echo site_url('contact')?> ">Recently Viewed</a></li>
 	        <li><a href="<?php echo site_url('users/logout')?>">Logout</a></li>
         </ul>
     </div><!--- end of content --> 

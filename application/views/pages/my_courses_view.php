@@ -3,8 +3,8 @@
     
     <!-- begin of header -->
 	<div data-role="header">
-	    <a href="index.html" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
-	    <h1>My courses</h1>
+	    <a href="javascript:history.back()" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">Back</a>
+	    <h1><?php echo $pageTitle ?></h1>
 	    <a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
     </div>
     <!-- end of header -->    

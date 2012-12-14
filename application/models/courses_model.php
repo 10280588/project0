@@ -32,6 +32,16 @@ class Courses_model extends CI_Model {
 		return $query->result_array();
     }
     
+    public function get_department_name($id)
+    {
+        $this->db->select('Department.short_name');
+        $this->db->from('Department');
+        $this->db->where('Department.dept_number', $id);
+		$query = $this->db->get();
+		$department = $query->row();
+		return $department->short_name;
+    }
+    
     public function get_gened_areas()
     {
         $this->db->select('req_number,name');
@@ -50,6 +60,16 @@ class Courses_model extends CI_Model {
 		$this->db->where('Requirement.req_number', $gid);
 		$query = $this->db->get();
 		return $query->result_array();
+    }
+    
+    public function get_gened_name($id)
+    {
+        $this->db->select('req_number,name');
+		$this->db->from('Requirement');
+		$this->db->where('req_number', $id);
+		$query = $this->db->get();
+		$gened = $query->row();
+		return $gened->name;
     }
     
     public function get_course($id)

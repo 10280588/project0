@@ -3,16 +3,18 @@
     
     <!-- begin of header -->
 	<div data-role="header" data-theme="a">
-	<a href="<?php echo site_url('home')?>"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
-	<h1>Page Title</h1>
+	<a href="javascript:history.back()"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
+	<h1><?php echo $pageTitle?></h1>
 	<a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
+    <?php if(($pageTitle !== 'Search Results') && ($pageTitle !== 'My Courses') && ($pageTitle !== 'Recently Viewed')): ?>
     <div data-role="navbar"  data-theme="a">
 		<ul>
-			<li><a href="#">All</a></li>
-			<li><a href="#">By Dep.</a></li>
-			<li><a href="#">By Gen. Ed.</a></li>
+			<li><a href="<?php echo site_url('courses')?>">All</a></li>
+			<li><a href="<?php echo site_url('courses/departments')?>">By Dep.</a></li>
+			<li><a href="<?php echo site_url('courses/gened_areas')?>">By Gen. Ed.</a></li>
 		</ul>
 	</div><!-- /navbar -->
+	<?php endif ?>
     
     </div>
     <!-- end of header -->
@@ -77,12 +79,28 @@
     <!-- begin of content -->
     <div data-role="content">
 	<ul data-role="listview"  data-autodividers="true" data-filter="true">
-		<?php $i = 0; ?>
-		
-		<?php foreach ($courses as $course): ?>
-        
+		<?php $i = 0;?>
+		<?php foreach ($results as $result): ?>
+            <?php 
+            if($pageTitle == 'Departments')
+            {
+                $argumentSegment = $result['dept_number'];
+                $objectName = $result['short_name'];
+            }
+            elseif($pageTitle == 'Gen Ed Areas')
+            {
+                $argumentSegment = $result['req_number'];
+                $objectName = $result['name'];
+            }
+            else
+            {
+                $argumentSegment = $result['course_unique'];
+                $objectName = $result['title'];
+            }
+            ?>
             <?php if ($i < 500)  :?>
-                <li><a href="courses/course/<?php echo $course['course_unique']; ?> "><?php echo $course['title'] ?></a></li>
+                 <?php $segments = array('courses',$functionSegment,$argumentSegment); ?>
+                <li><a href="<?php echo site_url($segments) ?>" >  <?php echo $objectName ?></a></li>
                 <?php  $i++ ?>
             <?php endif ?>
    

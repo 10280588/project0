@@ -10,7 +10,7 @@ $sched = current($schedule);
     
     <!-- begin of header -->
 	<div data-role="header" data-position="inline">
-	    <a href="<?php echo site_url('courses')?>" data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
+	    <a href="javascript:history.back()" data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
 	    <h1>Course Info</h1>
 	    
 	    <?php if ($enrolled === "yes"): ?>

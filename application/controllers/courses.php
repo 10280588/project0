@@ -8,15 +8,15 @@ class Courses extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->helper('login');
 		$this->load->helper('courses');
-		$this->load->model('users_model');
-
-		
+		$this->load->model('users_model');	
 	}
 
 	public function index()
 	{
 	    check_logged_in();
-		$data['courses'] = $this->courses_model->get_courses();
+		$data['results'] = $this->courses_model->get_courses();
+		$data['functionSegment'] = 'course';
+		$data['pageTitle'] = 'All Courses';
 		$this->load->view('templates/header');
 		$this->load->view('pages/list_view', $data);
 		$this->load->view('templates/footer');
@@ -40,56 +40,65 @@ class Courses extends CI_Controller {
 		
 		$this->load->view('templates/header');
 		$this->load->view('pages/individual_view', $data);
-		$this->load->view('templates/footer');
-			
+		$this->load->view('templates/footer');			
 	}
 	
-	public function searchresult()
+	public function departments()
 	{
 	    check_logged_in();
-	    $slug = $this->input->get('searchHome');
-	    $operator = $this->input->get('operator');
-	    
-	    if($operator === FALSE)
-	    {
-	        $operator = 'and';
-	    }
-	    
-	    if($slug === FALSE)
-	    {
-	        $data['results'] = $this->courses_model->get_courses();
-	    }
-	    else
-	    {
-	        if($operator === 'and')
-	        {
-		        $data['results'] = $this->courses_model->get_and_search($slug);
-		    }
-		    elseif($operator === 'or')
-		    {
-		        $data['results'] = $this->courses_model->get_or_search($slug);
-		    }
-		    else
-		    {
-		        show_404();
-		    }
-		}
-		$this->load->view('templates/header');
-		$this->load->view('pages/list_search_result_view', $data);
-		$this->load->view('templates/footer');
-	}	
+	    $data['results'] = $this->courses_model->get_departments();
+	    $data['functionSegment'] = 'department';
+	    $data['pageTitle'] = 'Departments';
+	    $this->load->view('templates/header');
+		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/footer');	    
+	}
 	
-	public function search_test()
+	public function department($id = FALSE)
 	{
-	    $totalArray = array();
-	    $search = 'black community';
-	    $keywords = str_word_count($search, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
-	    $titleArray = $this->courses_model->get_search($keywords, 'title', $operator);
-        $totalArray = $this->courses_model->merge_courses_xor($totalArray, $titleArray);
-	    $departmentArray = $this->courses_model->get_department(1);
-        $totalArray = $this->courses_model->merge_courses_and($totalArray, $departmentArray);
-        $data['courses'] = $totalArray;
-        $this->load->view('test_view',$data);
+	    check_logged_in();
+	    
+	    if($id === FALSE)
+	    {
+	            show_404();
+	    }
+	    
+		$data['results'] = $this->courses_model->get_department($id);
+		$data['functionSegment'] = 'course';
+		$data['pageTitle'] = $this->courses_model->get_department_name($id);
+		
+		$this->load->view('templates/header');
+		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/footer');			
+	}
+	
+	public function gened_areas()
+	{
+	    check_logged_in();
+	    $data['results'] = $this->courses_model->get_gened_areas();
+	    $data['functionSegment'] = 'gened_area';
+	    $data['pageTitle'] = 'Gen Ed Areas';
+	    $this->load->view('templates/header');
+		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/footer');	    
+	}
+	
+	public function gened_area($id = FALSE)
+	{
+	    check_logged_in();
+	    
+	    if($id === FALSE)
+	    {
+	            show_404();
+	    }
+	    
+		$data['results'] = $this->courses_model->get_gened_area($id);
+		$data['functionSegment'] = 'course';
+		$data['pageTitle'] = $this->courses_model->get_gened_name($id);
+		
+		$this->load->view('templates/header');
+		$this->load->view('pages/list_view', $data);
+		$this->load->view('templates/footer');			
 	}
 	
 	public function search()
@@ -97,19 +106,19 @@ class Courses extends CI_Controller {
 	    check_logged_in();
 	    $tryArray = array();
 	    $totalArray = array();
-	    $search = $this->input->post('searchHome');
+	    $search = $this->input->get('searchHome');
 	    $keywords = str_word_count($search, 1, 'àáãâäåçèéêëìíîïðñòóôõöùúûüýÿ1234567890');
-        $operator = $this->input->post('operator');
-        $facultyCheck = $this->input->post('faculty_check');
-        $titleCheck = $this->input->post('title_check');
-        $descriptionCheck = $this->input->post('description_check');
+        $operator = $this->input->get('operator');
+        $facultyCheck = $this->input->get('faculty_check');
+        $titleCheck = $this->input->get('title_check');
+        $descriptionCheck = $this->input->get('description_check');
         
-        $day = $this->input->post('day');
-	    $beginTime = $this->input->post('begin_time');
-        $endTime = $this->input->post('end_time');
+        $day = $this->input->get('day');
+	    $beginTime = $this->input->get('begin_time');
+        $endTime = $this->input->get('end_time');
         
-        $department = $this->input->post('department');
-        $gened = $this->input->post('gened');
+        $department = $this->input->get('department');
+        $gened = $this->input->get('gened');
         
         if($operator === FALSE)
         {
@@ -231,8 +240,10 @@ class Courses extends CI_Controller {
         
         usort($totalArray, 'alfabetize_courses');
 	    $data['results'] = $totalArray;
+	    $data['functionSegment'] = 'course';
+	    $data['pageTitle'] = 'Search Results';
 	    $this->load->view('templates/header');
-		$this->load->view('pages/list_search_result_view', $data);
+		$this->load->view('pages/list_view', $data);
 		$this->load->view('templates/footer');    
 		//$this->load->view('test_view', $data);  
 	}

@@ -1,5 +1,15 @@
 <?php
 class Users extends CI_Controller {
+    
+    /********************************************************************
+	*General information:  every function, except the constructor and   *
+	*                      the 'login' function start by checking if the*
+	*                      user is logged in by using the               *
+	*                      'check_logged_in' function which can be found*
+	*                      in the login_helper. This is done to prevent *
+	*                      a not logged in user to use any functionality*
+	*                      of the app except the login function.        *
+	********************************************************************/
 
 	public function __construct()
 	{
@@ -10,16 +20,36 @@ class Users extends CI_Controller {
         $this->load->helper('login');
 	}
 	
+	/********************************************************************
+	*function name: my_courses                                          *
+	*arguments:     none                                                *
+	*description:   gets the courses in which the logged in user is     *
+	*               enrolled and loads the 'my_courses_view' to display *
+	*               these courses.                                      *
+	********************************************************************/
 	public function my_courses()
 	{
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
-	    $data['courses'] = $this->users_model->get_user_courses($uid);
+	    $data['results'] = $this->users_model->get_user_courses($uid);
+	    $data['functionSegment'] = 'course';
+	    $data['pageTitle'] = 'My Courses';
 	   	$this->load->view('templates/header');
-	    $this->load->view('pages/my_courses_view', $data);
+	    $this->load->view('pages/list_view', $data);
 	    $this->load->view('templates/footer');
 	}
 
+    /********************************************************************
+	*function name: login                                               *
+	*arguments:     none                                                *
+	*description:   if user is not logged in this function will validate*
+	*               the login form. if form is not passed correctly, the*
+	*               login page is loaded again. if the form is passed   *
+	*               correctly a cookie is made containing the user_id   *
+	*               and then redirects to the home-page.                *
+	*               if this function is called being logged in, it      *
+	*               redirects to the home-page.                         *
+	********************************************************************/
 	public function login()
 	{
 	    if(isset($_COOKIE['uid']))
@@ -62,6 +92,12 @@ class Users extends CI_Controller {
 		}
 	}
 	
+	/********************************************************************
+	*function name: logout                                              *
+	*arguments:     none                                                *
+	*description:   deletes the 'uid' cookie and redirects to the login *
+	*               page                                                *
+	********************************************************************/
 	public function logout()
 	{
 	    check_logged_in();
@@ -69,35 +105,46 @@ class Users extends CI_Controller {
 	    redirect('users/login');
 	}
 	
+	/********************************************************************
+	*function name: add_course                                          *
+	*arguments:     $cid: course_unique of the course to be added to    *
+	*               the user. boolean FALSE by default.                 *
+	*description:   gets $uid (user_id) from the cookie. Checks if the  *
+	*               user is already enrolled in this course, if not the *
+	*               course is added to the users courses. the function  *
+	*               then redirects back to the courses page.            *
+	********************************************************************/
 	public function add_course($cid = FALSE)
 	{
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
-	    
-	    if($uid === FALSE)
-	    {
-	        $this->login();
-	    }
+	    $enrolled = $this->users_model->check_enrolled($uid,$cid);
 	    
 	    if($cid === FALSE)
 	    {
 	        show_404();
 	    }
 	    
-	    $this->users_model->add_course($uid,$cid);
+	    if($enrolled == 'no')
+	    {
+	        $this->users_model->add_course($uid,$cid);
+	    }
 	    
 	    redirect('courses/course/'.$cid);
 	}
 	
+	/********************************************************************
+	*function name: remove_course                                       *
+	*arguments:     $cid: course_unique of the course to be removed to  *
+	*               the user. boolean FALSE by default.                 *
+	*description:   gets $uid (user_id) from the cookie. removes the    *
+	*               course from the users courses and redirects back to *
+	*               the courses page.                                   *
+	********************************************************************/
 	public function remove_course($cid = FALSE)
 	{
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
-	    
-	    if($uid === FALSE)
-	    {
-	        $this->login();
-	    }
 	    
 	    if($cid === FALSE)
 	    {
@@ -105,19 +152,25 @@ class Users extends CI_Controller {
 	    }
 	    
 	    $this->users_model->remove_course($uid,$cid);
-	    
-	    $data['courses'] = $this->users_model->get_user_courses($uid);
-	    
-	    redirect('users/my_courses');
+	    redirect('courses/course/'.$cid);
 	}
 	
+	/********************************************************************
+	*function name: last_ten                                            *
+	*arguments:     none                                                *
+	*description:   gets $uid (user_id) from the cookie. gets the users *
+	*               ten most recently viewed courses and loads the view *
+	*               to display them.                                    *
+	********************************************************************/
 	public function last_ten()
 	{
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
-	    $data['last_ten'] = $this->users_model->last_ten($uid);
+	    $data['results'] = $this->users_model->get_last_ten($uid);
+	    $data['functionSegment'] = 'course';
+	    $data['pageTitle'] = 'Recently Viewed';
 	   	$this->load->view('templates/header');
-	    $this->load->view('pages/my_courses_view', $data);
+	    $this->load->view('pages/list_view', $data);
 	    $this->load->view('templates/footer');
 	
 	}

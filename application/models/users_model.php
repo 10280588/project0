@@ -109,7 +109,8 @@ class Users_model extends CI_Model {
     {
         $this->db->select('Recently_Viewed.course_unique, Courses.title');
         $this->db->from('Recently_Viewed');
-        $this->dn->where('Recently_Viewed.user_id',$uid);
+        $this->db->join('Courses','Recently_Viewed.course_unique = Courses.course_unique');
+        $this->db->where('Recently_Viewed.user_id',$uid);
         $this->db->order_by("time_viewed", "desc"); 
         $this->db->limit(10);
         $query = $this->db->get();
@@ -119,11 +120,32 @@ class Users_model extends CI_Model {
         
     public function add_to_last_ten($uid,$cid) 
     {
-        $data = array(
-        'course_unique' => $cid ,
-        'user_id' => $uid ,
-        );
-        $this->db->insert('Recently_Viewed', $data); 
+        $this->db->select('*');
+        $this->db->from('Recently_Viewed');
+        $this->db->where('user_id', $uid);
+        $this->db->where('course_unique', $cid);
+        $query = $this->db->get();
+        $getArray = $query->result_array();
+        
+        if(empty($getArray))
+        {
+            $data = array(
+            'course_unique' => $cid ,
+            'user_id' => $uid ,
+            );
+            
+            $this->db->insert('Recently_Viewed', $data); 
+        }
+        else
+        {
+            $data = array(
+            'time_viewed' => NULL ,
+            );
+            
+            $this->db->where('user_id', $uid);
+            $this->db->where('course_unique', $cid);
+            $this->db->update('Recently_Viewed', $data); 
+        }
     }
     
 }
