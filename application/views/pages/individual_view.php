@@ -29,7 +29,11 @@ $sched = current($schedule);
         <!-- begin of description -->
         <div data-role="collapsible" data-inset="false">
             <h3>Description</h3>
+            <?php if (empty($course['description'])): ?>
+                <p>No description available</p>
+            <?php else: ?>
             <p id="description" ><?php echo $course['description'];?></p>
+            <?php endif?>
         </div>
         <!-- end of description -->
         
@@ -47,38 +51,50 @@ $sched = current($schedule);
             </p>
             <p></p>
                 <span class="bold red block">Instructors:</span>
+                <?php $currentFacl = current($faculty); ?>
+                <?php if ($currentFacl['middle_name'] == 'faculty'): ?>
+                    <p>No faculty information available</p>
+                <?php else: ?>
                 <table>
                     <tr>
                         <td  class="title">Name</td>
                         <td  class="title center quarter">Role</td>
                         <td  class="title center quarter">Term</td>
                     </tr>
+                    
                     <?php foreach($faculty as $facl): ?>
                     <tr>
                         <td><?php echo $facl['prefix'] .' '. $facl['first_name'] .' '. $facl['middle_name'] .' '. $facl['last_name'] .' '. $facl['suffix']; ?></td>
-                        <td class="center quarter">Term</td>
                         <td class="center quarter"><?php echo $facl['role'];?></td>
+                        <td class="center quarter"><?php echo $facl['term_number'];?></td>
                     </tr>
                     <?php endforeach ?>
                 </table>
+                <?php endif ?>
                
             
             <p></p>
                 <span class="bold red block">Locations:</span>
-                <table>
-                    <tr>
-                        <td  class="title">Building</td>
-                        <td  class="title center quarter">Room</td>
-                        <td  class="title center quarter">Term</td>
-                    </tr>
-                    <?php foreach($locations as $location): ?>
-                    <tr>
-                        <td><?php echo $location['building']; ?></td>
-                        <td class="center quarter"><?php echo $location['room']; ?></td>
-                        <td class="center quarter"><?php echo $location['term_number']; ?></td>
-                    </tr>
-                    <?php endforeach ?>
-                </table>
+                <?php if (empty($locations)): ?>
+                    <p>No location information available</p>
+                <?php else: ?>
+                    <table>
+                        
+                        <tr>
+                            <td  class="title">Building</td>
+                            <td  class="title center quarter">Room</td>
+                            <td  class="title center quarter">Term</td>
+                        </tr>
+                        
+                        <?php foreach($locations as $location): ?>
+                        <tr>
+                            <td><?php echo $location['building']; ?></td>
+                            <td class="center quarter"><?php echo $location['room']; ?></td>
+                            <td class="center quarter"><?php echo $location['term_number']; ?></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </table>
+                <?php endif ?>
            
         </div>
         <!-- end of additional information -->
@@ -86,7 +102,11 @@ $sched = current($schedule);
         <!-- begin of notes -->
         <div data-role="collapsible" data-inset="false">
             <h3>Notes</h3>
+            <?php if (empty($course['notes'])): ?>
+                    <p>No notes available</p>
+                <?php else: ?>
             <p><?php echo $course['notes'];?></p>
+            <?php endif ?>
         </div>
         <!-- end of notes -->
     

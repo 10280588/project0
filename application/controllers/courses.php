@@ -130,21 +130,21 @@ class Courses extends CI_Controller {
         {
             $data['facultyCheck'] = 'faculty is niet false: '. $facultyCheck;
             $facultyArray = $this->courses_model->get_search($keywords, 'faculty', $operator);
-            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $facultyArray);
+            $totalArray = merge_courses_xor($totalArray, $facultyArray);
         }
         
         if($titleCheck !== FALSE)
         {
             $data['titleCheck'] = 'title is niet false: '. $titleCheck;
             $titleArray = $this->courses_model->get_search($keywords, 'title', $operator);
-            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $titleArray);
+            $totalArray = merge_courses_xor($totalArray, $titleArray);
         }
         
         if($descriptionCheck !== FALSE)
         {
             $data['descriptionCheck'] = 'description is niet false: '. $descriptionCheck;
             $descriptionArray = $this->courses_model->get_search($keywords, 'description', $operator);
-            $totalArray = $this->courses_model->merge_courses_xor($totalArray, $descriptionArray);
+            $totalArray = merge_courses_xor($totalArray, $descriptionArray);
         }
         
         if($day !== 'all')
@@ -154,11 +154,11 @@ class Courses extends CI_Controller {
             
             if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE))
             {
-                $totalArray = $this->courses_model->merge_courses_xor($totalArray, $dayArray);
+                $totalArray = merge_courses_xor($totalArray, $dayArray);
             }
             else
             {
-                $totalArray = $this->courses_model->merge_courses_and($totalArray, $dayArray);
+                $totalArray = merge_courses_and($totalArray, $dayArray);
             }
         }
         
@@ -171,11 +171,11 @@ class Courses extends CI_Controller {
                 
                 if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all'))
                 {
-                    $totalArray = $this->courses_model->merge_courses_xor($totalArray, $timeArray);
+                    $totalArray = merge_courses_xor($totalArray, $timeArray);
                 }
                 else
                 {
-                    $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
+                    $totalArray = merge_courses_and($totalArray, $timeArray);
                 }
             }
             
@@ -186,11 +186,11 @@ class Courses extends CI_Controller {
                 
                 if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all'))
                 {
-                    $totalArray = $this->courses_model->merge_courses_xor($totalArray, $timeArray);
+                    $totalArray = merge_courses_xor($totalArray, $timeArray);
                 }
                 else
                 {
-                    $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
+                    $totalArray = merge_courses_and($totalArray, $timeArray);
                 }
             }
             
@@ -201,11 +201,11 @@ class Courses extends CI_Controller {
                 
                 if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all'))
                 {
-                    $totalArray = $this->courses_model->merge_courses_xor($totalArray, $timeArray);
+                    $totalArray = merge_courses_xor($totalArray, $timeArray);
                 }
                 else
                 {
-                    $totalArray = $this->courses_model->merge_courses_and($totalArray, $timeArray);
+                    $totalArray = merge_courses_and($totalArray, $timeArray);
                 }         
             }
         }
@@ -216,11 +216,11 @@ class Courses extends CI_Controller {
             $departmentArray = $this->courses_model->get_department($department);
             if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all') && ($beginTime == 'all' && $endTime == 'all'))
             {
-                $totalArray = $this->courses_model->merge_courses_xor($totalArray, $departmentArray);
+                $totalArray = merge_courses_xor($totalArray, $departmentArray);
             }
             else
             {
-                $totalArray = $this->courses_model->merge_courses_and($totalArray, $departmentArray);
+                $totalArray = merge_courses_and($totalArray, $departmentArray);
             }
         }
         
@@ -230,11 +230,11 @@ class Courses extends CI_Controller {
             $genedArray = $this->courses_model->get_gened_area($gened);
             if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all') && ($beginTime == 'all' && $endTime == 'all') && ($department == 'all'))
             {
-                $totalArray = $this->courses_model->merge_courses_xor($totalArray, $genedArray);
+                $totalArray = merge_courses_xor($totalArray, $genedArray);
             }
             else
             {
-                $totalArray = $this->courses_model->merge_courses_and($totalArray, $genedArray);
+                $totalArray = merge_courses_and($totalArray, $genedArray);
             }         
         }
         
