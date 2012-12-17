@@ -27,16 +27,19 @@
             <?php 
             if($pageTitle == 'Departments')
             {
+        	    $functionSegment = 'department';
                 $argumentSegment = $result['dept_number'];
                 $objectName = $result['short_name'];
             }
             elseif($pageTitle == 'Gen Ed Areas')
             {
+        	    $data['functionSegment'] = 'gened_area';
                 $argumentSegment = $result['req_number'];
                 $objectName = $result['name'];
             }
             else
             {
+                $functionSegment = 'course';
                 $argumentSegment = $result['course_unique'];
                 $objectName = $result['title'];
             }

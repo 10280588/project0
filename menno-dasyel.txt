@@ -5,7 +5,7 @@ Beta
 ----
 Opmerkingen/vragen van Marin:
 - Duplication in application/helpers/course_helpers
-- application/controllers/test.php => eruit
+- application/controllers/test.php => eruit*
 - application/controllers/home.php: niet duidelijk dat check_logged_in()
   redirect
 - application/controllers/courses.php:18,19 'course' en 'All courses' data?

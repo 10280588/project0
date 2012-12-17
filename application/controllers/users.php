@@ -32,7 +32,6 @@ class Users extends CI_Controller {
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    $data['results'] = $this->users_model->get_user_courses($uid);
-	    $data['functionSegment'] = 'course';
 	    $data['pageTitle'] = 'My Courses';
 	   	$this->load->view('templates/header');
 	    $this->load->view('pages/list_view', $data);
@@ -167,7 +166,6 @@ class Users extends CI_Controller {
 	    check_logged_in();
 	    $uid = $this->input->cookie('uid');
 	    $data['results'] = $this->users_model->get_last_ten($uid);
-	    $data['functionSegment'] = 'course';
 	    $data['pageTitle'] = 'Recently Viewed';
 	   	$this->load->view('templates/header');
 	    $this->load->view('pages/list_view', $data);

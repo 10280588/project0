@@ -4,6 +4,7 @@ class Courses_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
+		$this->load->helper('courses');
 	}
 	
 	public function get_courses()
@@ -113,8 +114,13 @@ class Courses_model extends CI_Model {
 		return $query->result_array();
     }
     
-    public function get_search($keywords,$target,$operator)
-    {        
+    public function get_search($totalArray, $keywords, $target, $check)
+    {   
+        if($check == FALSE)
+        {
+            return $totalArray;
+        }
+        
         $this->db->select('Courses.course_unique, Courses.title');
         $this->db->from('Courses');
         
@@ -127,15 +133,8 @@ class Courses_model extends CI_Model {
         foreach ($keywords as $keyword)
         {
             if($target == 'faculty')
-            {
-                if($operator == 'or')
-                {
-                    $this->db->or_like('(Faculty.first_name', $keyword);
-                }
-                else
-                {
-                    $this->db->like('(Faculty.first_name', $keyword);
-                }
+            { 
+                $this->db->like('(Faculty.first_name', $keyword);
                 $this->db->or_like('Faculty.middle_name', $keyword);
                 $this->db->or_like('Faculty.last_name', $keyword);
                 $this->db->bracket('close','like');
@@ -143,53 +142,59 @@ class Courses_model extends CI_Model {
             
             if($target == 'description')
             {
-                if($operator == 'or')
-                {
-                    $this->db->or_like('Courses.description', $keyword);
-                }
-                else
-                {
-                    $this->db->like('Courses.description', $keyword);  
-                }        
+                $this->db->like('Courses.description', $keyword);           
             }
             
             if($target == 'title')
             {
-                if($operator == 'or')
-                {
-                    $this->db->or_like('Courses.title', $keyword); 
-                }
-                else
-                {
-                    $this->db->like('Courses.title', $keyword); 
-                }         
+                $this->db->like('Courses.title', $keyword);        
             }
         }
         
         $this->db->order_by('course_unique','asc');
         $query = $this->db->get();
-        return $query->result_array();
+        $resultArray = $query->result_array();
+        return merge_courses($totalArray, $resultArray, 'or');
     }
     
-    public function search_day($day)
+    public function search_day($totalArray, $day)
     {
+        if($day == 'all')
+        {
+            return $totalArray;
+        }
+        
         $this->db->select('Courses.course_unique,Courses.title');
         $this->db->from('Courses');
         $this->db->join('Schedule', 'Courses.course_unique = Schedule.course_unique');
         $this->db->where('day', $day);
         $query = $this->db->get();
-        return $query->result_array();        
+        $resultArray = $query->result_array();  
+        return merge_courses($totalArray, $resultArray, $mergeType);     
     }
     
-    public function search_time($beginTime, $endTime)
+    public function search_time($totalArray, $beginTime, $endTime, $mergeType)
     {
+        if($beginTime == 'all' && $endTime == 'all')
+        {
+            return $totalArray;
+        }
+        elseif($beginTime == 'all')
+        {
+            $beginTime = 0;
+        }
+        elseif($endTime == 'all')
+        {
+            $endTime = 2400;
+        }
         $this->db->select('Courses.course_unique,Courses.title');
         $this->db->from('Courses');
         $this->db->join('Schedule', 'Courses.course_unique = Schedule.course_unique');
         $this->db->where('begin_time >=', $beginTime);
         $this->db->where('end_time <=', $endTime);
         $query = $this->db->get();
-        return $query->result_array();        
+        $resultArray = $query->result_array();   
+        return merge_courses($totalArray, $resultArray, $mergeType);     
     }
         
    
