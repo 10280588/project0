@@ -13,7 +13,7 @@ class Courses extends CI_Controller {
 
 	public function index()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 		$data['results'] = $this->courses_model->get_courses();
 		$data['functionSegment'] = 'course';
 		$data['pageTitle'] = 'All Courses';
@@ -24,7 +24,7 @@ class Courses extends CI_Controller {
 
 	public function course($id = FALSE)
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    if($id === FALSE)
 	    {
@@ -45,7 +45,7 @@ class Courses extends CI_Controller {
 	
 	public function departments()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $data['results'] = $this->courses_model->get_departments();
 	    $data['functionSegment'] = 'department';
 	    $data['pageTitle'] = 'Departments';
@@ -56,7 +56,7 @@ class Courses extends CI_Controller {
 	
 	public function department($id = FALSE)
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    
 	    if($id === FALSE)
 	    {
@@ -74,7 +74,7 @@ class Courses extends CI_Controller {
 	
 	public function gened_areas()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $data['results'] = $this->courses_model->get_gened_areas();
 	    $data['functionSegment'] = 'gened_area';
 	    $data['pageTitle'] = 'Gen Ed Areas';
@@ -85,7 +85,7 @@ class Courses extends CI_Controller {
 	
 	public function gened_area($id = FALSE)
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    
 	    if($id === FALSE)
 	    {
@@ -103,7 +103,7 @@ class Courses extends CI_Controller {
 	
 	public function search()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $tryArray = array();
 	    $totalArray = array();
 	    $search = $this->input->get('searchHome');
@@ -250,7 +250,7 @@ class Courses extends CI_Controller {
 	
 	public function advanced_search()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $data['departments'] = $this->courses_model->get_departments(); 
 	 	$data['geneds'] = $this->courses_model->get_gened_areas(); 
 	 	$this->load->view('templates/header');

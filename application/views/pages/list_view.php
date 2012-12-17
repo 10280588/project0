@@ -98,11 +98,10 @@
                 $objectName = $result['title'];
             }
             ?>
-            <?php if ($i < 500)  :?>
+            
                  <?php $segments = array('courses',$functionSegment,$argumentSegment); ?>
                 <li><a href="<?php echo site_url($segments) ?>" >  <?php echo $objectName ?></a></li>
-                <?php  $i++ ?>
-            <?php endif ?>
+              
    
         <?php endforeach ?>
 	    </ul>

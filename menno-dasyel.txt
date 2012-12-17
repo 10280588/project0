@@ -17,3 +17,23 @@ Opmerkingen/vragen van Marin:
 - views/templates/ => empty files?
 
 
+TODO:
+
+
+- application/controllers/courses.php:18,19 'course' en 'All courses' data?
+=> documentatie en alles in view?
+- application/controllers/courses.php leg search even uit aub
+=> meerdere functies?
+
+
+
+DONE:
+- Duplication in application/helpers/course_helpers
+- application/controllers/test.php => eruit
+- views/templates/ => empty files?
+- models/backup? => eruit?
+- application/controllers/courses.php leg search even uit aub
+=> debug code eruit
+- application/controllers/home.php: niet duidelijk dat check_logged_in()
+  redirect
+

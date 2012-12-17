@@ -7,7 +7,7 @@ class Home extends CI_Controller {
 	{
 	    $this->load->helper('url');
 	    $this->load->helper('login');
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 		$this->load->view('templates/header');
 		$this->load->view('pages/home_view');
 		$this->load->view('templates/footer');

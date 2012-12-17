@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function check_logged_in()
+function if_not_logged_in_redirect()
 {
     if(!isset($_COOKIE['uid']))
     { 

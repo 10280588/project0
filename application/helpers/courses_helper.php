@@ -6,8 +6,10 @@ function alfabetize_courses($a, $b)
     return strnatcmp($a['title'], $b['title']);
 }
 
-function merge_courses_xor($totalArray, $addArray)
+function merge_courses($totalArray, $addArray, $mergeType)
 {
+    $totalAndArray = array();
+     
     foreach($addArray as $add)
     {
         $i = FALSE;
@@ -20,18 +22,28 @@ function merge_courses_xor($totalArray, $addArray)
             }
         }
         
-        if($i === FALSE)
+        if($i === FALSE && $mergeType == "or")
         {
             array_push($totalArray, $add);
-        }                
+            return $totalArray;	
+        }
+        
+        elseif($i === TRUE && $mergeType == "and")
+        {
+            array_push($totalAndArray, $add);
+            return $totalAndArray;
+        }
+        
+        return $totalArray;	
+                        
     }
 
-    return $totalArray;		
+   	
 }
 
 function merge_courses_and($totalArray, $addArray)
 {
-    $totalAndArray = array();
+   
     
     foreach($addArray as $add)
     {
@@ -45,10 +57,7 @@ function merge_courses_and($totalArray, $addArray)
             }
         }
         
-        if($i === TRUE)
-        {
-            array_push($totalAndArray, $add);
-        }                
+                  
     }
 
     return $totalAndArray;		

@@ -29,7 +29,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function my_courses()
 	{
-	    check_logged_in();
+	    if_notlogged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    $data['results'] = $this->users_model->get_user_courses($uid);
 	    $data['functionSegment'] = 'course';
@@ -100,7 +100,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function logout()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $this->users_model->delete_uid_cookie();
 	    redirect('users/login');
 	}
@@ -116,7 +116,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function add_course($cid = FALSE)
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    $enrolled = $this->users_model->check_enrolled($uid,$cid);
 	    
@@ -143,7 +143,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function remove_course($cid = FALSE)
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    
 	    if($cid === FALSE)
@@ -164,7 +164,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function last_ten()
 	{
-	    check_logged_in();
+	    if_not_logged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    $data['results'] = $this->users_model->get_last_ten($uid);
 	    $data['functionSegment'] = 'course';
