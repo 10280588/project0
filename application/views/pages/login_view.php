@@ -17,7 +17,7 @@
     <h3>Password:</h3>
     <input type="password" name="password" id="password" value=""  />
     </br>
-    <label><input type="checkbox" name="cookieCheck" data-role="none" /> Keep me logged in </label>
+    <label><input type="checkbox" name="cookieCheck" data-role="none" /> Keep me logged in for one year </label>
     </br>
     </br>
     <input type="submit"  value="Login" />
