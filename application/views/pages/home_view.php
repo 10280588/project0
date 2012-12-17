@@ -5,9 +5,15 @@
                 <img src="http://www.fas.harvard.edu/home/sites/all/themes/fas/images/harvard_fas_logo.jpg" width="250" alt="" />
             </div>
         </div>
-        <form action="index.php/courses/searchresult" method="get">
+        <form action="index.php/courses/search" method="get">
             <input type="text" data-type="search" name="searchHome" id="searchHome" value="" class="ui-input-text ui-body-a">
             <input type="submit" data-mini="true" value="Submit Button" />
+            <input type="hidden" name="title_check" value="on" >
+            <input type="hidden" name="day" value="all" >
+            <input type="hidden" name="begin_time" value="all" >
+            <input type="hidden" name="end_time" value="all" >
+            <input type="hidden" name="department" value="all" >
+            <input type="hidden" name="gened" value="all" >
         </form>
         <ul data-role="listview" data-inset="true" >
             <li  data-role="list-divider"  ></li>
