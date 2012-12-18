@@ -24,8 +24,7 @@ function merge_courses($totalArray, $addArray, $mergeType)
         
         if($i === FALSE && $mergeType == "or")
         {
-            array_push($totalArray, $add);
-            return $totalArray;	
+            array_push($totalArray, $add);        	
         }
         
         elseif($i === TRUE && $mergeType == "and")
@@ -33,12 +32,16 @@ function merge_courses($totalArray, $addArray, $mergeType)
             array_push($totalAndArray, $add);
             return $totalAndArray;
         }
-        
-        return $totalArray;	
                         
     }
-
-   	
+    if($mergeType == 'or')
+    {
+        return $totalArray;
+    }
+    elseif($mergeType == 'and')
+    {
+        return $totalAndArray;
+    }
 }
 
 function merge_courses_and($totalArray, $addArray)

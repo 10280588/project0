@@ -4,17 +4,20 @@ class Users_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
+		$this->load->library('encrypt');
 	}
     
     public function create_uid_cookie($uid,$cookieCheck)
-    {     
+    {   
+        $uidEncrypted = $this->encrypt->encode($uid);  
         if($cookieCheck === FALSE)
         {
-            setcookie('uid', $uid, 0, '/');
+        
+            setcookie('uid', $uidEncrypted, 0, '/');
         }
         else
         {
-            setcookie('uid', $uid, time()+(3600*24*365), '/');
+            setcookie('uid', $uidEncrypted, time()+(3600*24*365), '/');
         }
     }
     
@@ -24,8 +27,9 @@ class Users_model extends CI_Model {
         delete_cookie('uid');
     }
     
-    public function get_user_name($uid)
+    public function get_user_name($uidEncrypted)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $this->db->select('first_name, last_name');
         $this->db->from('User');
         $this->db->where('user_id',$uid);
@@ -34,8 +38,9 @@ class Users_model extends CI_Model {
         return $query->result_array();
     }
     
-    public function get_user_courses($uid)
+    public function get_user_courses($uidEncrypted)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $this->db->select('Courses.course_unique, Courses.title');
         $this->db->from('Courses');
         $this->db->join('Course_User','Courses.course_unique = Course_User.course_unique');
@@ -46,8 +51,9 @@ class Users_model extends CI_Model {
         return $query->result_array();
     }
     
-    public function add_course($uid,$cid)
+    public function add_course($uidEncrypted,$cid)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $data = array(
        'course_unique' => $cid ,
        'user_id' => $uid
@@ -57,8 +63,9 @@ class Users_model extends CI_Model {
         return TRUE;
     }
     
-    public function remove_course($uid,$cid)
+    public function remove_course($uidEncrypted,$cid)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $this->db->where('course_unique', $cid);
         $this->db->where('user_id', $uid);
         $this->db->delete('Course_User');
@@ -84,8 +91,9 @@ class Users_model extends CI_Model {
         }
     }
     
-    public function check_enrolled($uid,$cid)
+    public function check_enrolled($uidEncrypted,$cid)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $this->db->select('Courses.course_unique, Courses.title');
         $this->db->from('Courses');
         $this->db->join('Course_User','Courses.course_unique = Course_User.course_unique');
@@ -105,8 +113,9 @@ class Users_model extends CI_Model {
         
     }
     
-    public function get_last_ten($uid)
+    public function get_last_ten($uidEncrypted)
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
         $this->db->select('Recently_Viewed.course_unique, Courses.title');
         $this->db->from('Recently_Viewed');
         $this->db->join('Courses','Recently_Viewed.course_unique = Courses.course_unique');
@@ -118,8 +127,10 @@ class Users_model extends CI_Model {
     }
         
         
-    public function add_to_last_ten($uid,$cid) 
+    public function add_to_last_ten($uidEncrypted,$cid) 
     {
+        $uid = $this->encrypt->decode($uidEncrypted);
+        
         $this->db->select('*');
         $this->db->from('Recently_Viewed');
         $this->db->where('user_id', $uid);
@@ -146,6 +157,26 @@ class Users_model extends CI_Model {
             $this->db->where('course_unique', $cid);
             $this->db->update('Recently_Viewed', $data); 
         }
+    }
+    
+    public function limit_to_last_ten($uidEncrypted)
+    {
+        $uid = $this->encrypt->decode($uidEncrypted);
+        
+        $this->db->select('*');
+        $this->db->from('Recently_Viewed');
+        $this->db->where('user_id', $uid);
+        $rvCount = $this->db->count_all_results();
+        
+        if($rvCount > 10)
+        {
+            $this->db->where('user_id', $uid);
+            $this->db->limit($rvCount-10);
+            $this->db->order_by('time_viewed', 'asc');
+            $this->db->delete('Recently_Viewed'); 
+        }
+        
+        return TRUE;
     }
     
 }
