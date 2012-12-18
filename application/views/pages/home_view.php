@@ -5,7 +5,7 @@
                 <img src="http://www.fas.harvard.edu/home/sites/all/themes/fas/images/harvard_fas_logo.jpg" width="250" alt="" />
             </div>
         </div>
-        <form action="index.php/courses/search" method="get">
+        <form action="<?php echo site_url('courses/search') ?>" method="get">
             <input type="text" data-type="search" name="searchHome" id="searchHome" value="" class="ui-input-text ui-body-a">
             <input type="submit" data-mini="true" value="Search for course" />
             <input type="hidden" name="title_check" value="on" >
