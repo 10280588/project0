@@ -15,15 +15,33 @@ class Courses extends CI_Controller {
 	{
 	    if_not_logged_in_redirect();
 	    
+	    $resultsPerPage = 250;
+	    //start pagination config
 	    $this->load->library('pagination');
         $config['base_url'] = site_url('courses/index');
         $config['total_rows'] = 5233;
-        $config['per_page'] = 250; 
-        $this->pagination->initialize($config); 
-        $data['links'] = $this->pagination->create_links();
-
+        $config['per_page'] = $resultsPerPage;
+        $config['full_tag_open'] = '<ul>';
+        $config['full_tag_close'] = '</ul>';
+        $config['cur_tag_open'] = '<li>';
+        $config['cur_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_links'] = 1;
+        $config['display_pages'] = FALSE;
+        $this->pagination->initialize($config);
+        //end pagination config
+        
+        $data['links'] = $this->pagination->create_links();   
 		$data['results'] = $this->courses_model->get_courses($offset);
-		$data['pageTitle'] = 'All Courses';
+		$pageNumber = ($offset/$resultsPerPage)+1;
+		$data['pageTitle'] = 'All Courses '. $pageNumber;
 		$this->load->view('templates/header');
 		$this->load->view('pages/list_view', $data);
 		$this->load->view('templates/footer');
