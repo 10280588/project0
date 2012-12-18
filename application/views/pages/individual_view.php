@@ -14,7 +14,7 @@ $sched = current($schedule);
 	    <h1>Course Info</h1>
 	    
 	    <?php if ($enrolled === "yes"): ?>
-	    	     <a  href="<?php echo site_url(array('users','remove_course',$course['course_unique'])) ?>" data-icon="minus" class="ui-btn-right">DEL</a>
+	    	     <a  href="<?php echo site_url(array('users','remove_course',$course['course_unique'])) ?>" data-icon="minus" class="ui-btn-right">Del</a>
 	    <?php else: ?>
 	             <a  href="<?php echo site_url(array('users','add_course',$course['course_unique'])) ?>" data-icon="plus" class="ui-btn-right">Add</a>
 	    <?php endif ?>
@@ -110,8 +110,13 @@ $sched = current($schedule);
         </div>
         <!-- end of notes -->
     
-    
-        <input type="submit" value="Add to Basket" >
+         
+	    <?php if ($enrolled === "yes"): ?>
+	    	     <a  href="<?php echo site_url(array('users','remove_course',$course['course_unique'])) ?>" data-role="button">Remove from basket</a>
+	    <?php else: ?>
+	             <a  href="<?php echo site_url(array('users','add_course',$course['course_unique'])) ?>" data-role="button" >Add to basket</a>
+	    <?php endif ?>
+        
     </div>
     <!-- end of content -->
     

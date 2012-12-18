@@ -5,8 +5,7 @@
 	<div data-role="header" data-theme="a">
 	<a href="javascript:history.back()"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
 	<h1><?php echo $pageTitle?></h1>
-	<a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
-    <?php if(($pageTitle !== 'Search Results') && ($pageTitle !== 'My Courses') && ($pageTitle !== 'Recently Viewed')): ?>
+	<?php if(($pageTitle !== 'Search Results') && ($pageTitle !== 'My Courses') && ($pageTitle !== 'Recently Viewed')): ?>
     <div data-role="navbar"  data-theme="a">
 		<ul>
 			<li><a href="<?php echo site_url('courses')?>">All</a></li>

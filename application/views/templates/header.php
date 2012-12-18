@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes" /> 
     
-    <title>the begin</title>
+    <title>Harvard Courses</title>
     <?php echo link_tag('css/themes/harvardColor.min.css'); ?>
     <?php echo link_tag('css/main.css'); ?> 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
