@@ -68,7 +68,7 @@
                         <?php $h=0; while ($h <= 23): ?>
 		               
 		                <?php $q=0; while ($q <= 3):?>
-		                <option value="<?php echo $h.($q*15)?>"><?php printf("%02d", $h); echo ':'; printf("%02d", ($q*15))?></option>
+		                <option value="<?php printf('%02d', $h); printf('%02d', ($q*15)); ?>"><?php printf("%02d", $h); echo ':'; printf("%02d", ($q*15))?></option>
 	                    <?php $q = $q+1; ?>
 	                    <?php endwhile ?>
 	                    
@@ -82,9 +82,8 @@
                         <?php $h=0; while ($h <= 23): ?>
 		               
 		                <?php $q=0; while ($q <= 3):?>
-		                <?php $valueH = printf("%02d", $h); 
-		                <?php $valueQ = printf("%02d", ($q*15))?>;
-		                <option value="<?php echo $valueH echo $valueQ ?>"><?php printf("%02d", $h); echo ':'; printf("%02d", ($q*15))?></option>
+		                
+		                <option value="<?php printf('%02d', $h); printf('%02d', ($q*15)); ?>"><?php printf("%02d", $h); echo ':'; printf("%02d", ($q*15))?></option>
 	                    <?php $q = $q+1; ?>
 	                    <?php endwhile ?>
 	                    
