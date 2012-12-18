@@ -11,10 +11,18 @@ class Courses extends CI_Controller {
 		$this->load->model('users_model');	
 	}
 
-	public function index()
+	public function index($offset = 0)
 	{
 	    if_not_logged_in_redirect();
-		$data['results'] = $this->courses_model->get_courses();
+	    
+	    $this->load->library('pagination');
+        $config['base_url'] = site_url('courses/index');
+        $config['total_rows'] = 5233;
+        $config['per_page'] = 250; 
+        $this->pagination->initialize($config); 
+        $data['links'] = $this->pagination->create_links();
+
+		$data['results'] = $this->courses_model->get_courses($offset);
 		$data['pageTitle'] = 'All Courses';
 		$this->load->view('templates/header');
 		$this->load->view('pages/list_view', $data);
@@ -36,6 +44,7 @@ class Courses extends CI_Controller {
 	    $data['locations'] = $this->courses_model->get_course_location($id);
 	    $data['enrolled'] = $this->users_model->check_enrolled($uid,$id);
 		$this->users_model->add_to_last_ten($uid, $id);
+		$this->users_model->limit_to_last_ten($uid);
 		
 		$this->load->view('templates/header');
 		$this->load->view('pages/individual_view', $data);
@@ -117,35 +126,30 @@ class Courses extends CI_Controller {
         $totalArray = $this->courses_model->get_search($totalArray, $keywords, 'title', $titleCheck);
         $totalArray = $this->courses_model->get_search($totalArray, $keywords, 'description', $descriptionCheck);
             
+        $op = 'and';
         if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE))
         {
-            $totalArray = $this->courses_model->search_day($totalArray, $day, 'or');
+            $op = 'or';
         }
-        else
-        {
-            $totalArray = $this->courses_model->search_day($totalArray, $day, 'and');
-        }
+            
+        $totalArray = $this->courses_model->search_day($totalArray, $day, $op);
                      
         if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all'))
         {
-            $totalArray = $this->courses_model->search_time($totalArray, $beginTime, $endTime, 'or');
+            $op = 'or';
         }
-        else
-        {
-            $totalArray = $this->courses_model->search_time($totalArray, $beginTime, $endTime, 'and');
-        }
+        
+        $totalArray = $this->courses_model->search_time($totalArray, $beginTime, $endTime, $op);
         
         if($department !== 'all')
         {
             $departmentArray = $this->courses_model->get_department($department);
             if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all') && ($beginTime == 'all' && $endTime == 'all'))
             {
-                $totalArray = merge_courses($totalArray, $departmentArray, 'or');
+                $op = 'or';
             }
-            else
-            {
-                $totalArray = merge_courses($totalArray, $departmentArray, 'and');
-            }
+            
+            $totalArray = merge_courses($totalArray, $departmentArray, $op);
         }
         
         if($gened !== 'all')
@@ -153,12 +157,10 @@ class Courses extends CI_Controller {
             $genedArray = $this->courses_model->get_gened_area($gened);
             if(($facultyCheck === FALSE) && ($titleCheck === FALSE) && ($descriptionCheck === FALSE) && ($day == 'all') && ($beginTime == 'all' && $endTime == 'all') && ($department == 'all'))
             {
-                $totalArray = merge_courses($totalArray, $genedArray, 'or');
+                $op = 'or';    
             }
-            else
-            {
-                $totalArray = merge_courses($totalArray, $genedArray, 'and');
-            }         
+            
+            $totalArray = merge_courses($totalArray, $genedArray, $op);
         }
         
         usort($totalArray, 'alfabetize_courses');

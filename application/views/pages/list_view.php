@@ -3,17 +3,17 @@
     
     <!-- begin of header -->
 	<div data-role="header" data-theme="a">
-	<a href="javascript:history.back()"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
-	<h1><?php echo $pageTitle?></h1>
-	<a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
-    <?php if(($pageTitle !== 'Search Results') && ($pageTitle !== 'My Courses') && ($pageTitle !== 'Recently Viewed')): ?>
-    <div data-role="navbar"  data-theme="a">
-		<ul>
-			<li><a href="<?php echo site_url('courses')?>">All</a></li>
-			<li><a href="<?php echo site_url('courses/departments')?>">By Dep.</a></li>
-			<li><a href="<?php echo site_url('courses/gened_areas')?>">By Gen. Ed.</a></li>
-		</ul>
-	</div><!-- /navbar -->
+	    <a href="javascript:history.back()"  data-role="button"  data-icon="arrow-l" data-iconpos="notext">Back</a>
+	    <h1><?php echo $pageTitle?></h1>
+	    <a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" data-icon="gear" data-iconpos="notext">Options</a>
+        <?php if(($pageTitle !== 'Search Results') && ($pageTitle !== 'My Courses') && ($pageTitle !== 'Recently Viewed')): ?>
+        <div data-role="navbar"  data-theme="a">
+		    <ul>
+			    <li><a href="<?php echo site_url('courses')?>">All</a></li>
+			    <li><a href="<?php echo site_url('courses/departments')?>">By Dep.</a></li>
+			    <li><a href="<?php echo site_url('courses/gened_areas')?>">By Gen. Ed.</a></li>
+		    </ul>
+	    </div><!-- /navbar -->
 	<?php endif ?>
     
     </div>
@@ -33,7 +33,7 @@
             }
             elseif($pageTitle == 'Gen Ed Areas')
             {
-        	    $data['functionSegment'] = 'gened_area';
+        	    $functionSegment = 'gened_area';
                 $argumentSegment = $result['req_number'];
                 $objectName = $result['name'];
             }
@@ -51,11 +51,17 @@
    
         <?php endforeach ?>
 	    </ul>
+	    
 	</div>
 	<!-- end of content -->
 	
 	  <!-- begin of footer -->
     <div data-role="footer" data-position="fixed">
+        <div data-role="navbar"  data-theme="a">
+        <ul>
+		    <li><?php echo $links ?></li>
+	    </ul>
+	    </div><!-- /navbar -->
 	    <div data-role="navbar">
 		    <ul>
 			    <li><a href="<?php echo site_url('home')?>"  data-icon="home">Home</a></li>

@@ -29,7 +29,7 @@ class Users extends CI_Controller {
 	********************************************************************/
 	public function my_courses()
 	{
-	    if_notlogged_in_redirect();
+	    if_not_logged_in_redirect();
 	    $uid = $this->input->cookie('uid');
 	    $data['results'] = $this->users_model->get_user_courses($uid);
 	    $data['pageTitle'] = 'My Courses';

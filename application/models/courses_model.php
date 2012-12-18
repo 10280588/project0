@@ -7,10 +7,11 @@ class Courses_model extends CI_Model {
 		$this->load->helper('courses');
 	}
 	
-	public function get_courses()
+	public function get_courses($offset)
     {
         $this->db->select('title,course_unique');
         $this->db->order_by('title','asc');
+        $this->db->limit(250, $offset);
 		$query = $this->db->get('Courses');
 		return $query->result_array();
     }
@@ -157,7 +158,7 @@ class Courses_model extends CI_Model {
         return merge_courses($totalArray, $resultArray, 'or');
     }
     
-    public function search_day($totalArray, $day)
+    public function search_day($totalArray, $day, $mergeType)
     {
         if($day == 'all')
         {
@@ -170,7 +171,8 @@ class Courses_model extends CI_Model {
         $this->db->where('day', $day);
         $query = $this->db->get();
         $resultArray = $query->result_array();  
-        return merge_courses($totalArray, $resultArray, $mergeType);     
+        $returnArray = merge_courses($totalArray, $resultArray, $mergeType);
+        return $returnArray;     
     }
     
     public function search_time($totalArray, $beginTime, $endTime, $mergeType)
