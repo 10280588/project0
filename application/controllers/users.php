@@ -5,7 +5,7 @@ class Users extends CI_Controller {
 	*General information:  every function, except the constructor and   *
 	*                      the 'login' function start by checking if the*
 	*                      user is logged in by using the               *
-	*                      'check_logged_in' function which can be found*
+	*                      'redirect_if_not_logged_in' function which can be found*
 	*                      in the login_helper. This is done to prevent *
 	*                      a not logged in user to use any functionality*
 	*                      of the app except the login function.        *
